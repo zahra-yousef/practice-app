@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     public function index(){
-        return view('welcome');
+        return view('pages.index');
     }
 
     public function about(){
@@ -16,8 +16,8 @@ class PageController extends Controller
         return view('pages.about', compact('title','body'));
     }
 
-    public function users($id, $cop){
-        $name = 'Noor - '.$id. " COP - ".$cop;
+    public function users($id, $comp){
+        $name = 'Noor - '.$id. " COP - ".$comp;
         return view('pages.users', compact('name'));
     }
 }

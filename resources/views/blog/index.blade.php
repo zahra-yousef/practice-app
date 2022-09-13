@@ -1,8 +1,8 @@
 @extends('layouts.frontend')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12 mt-4">
+    <div class="row">
+        <div class="col-md-12 mt-4 text-center">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -10,8 +10,9 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    Posts
-                    <a href="{{ url('posts/create') }}" class="btn btn-primary float-end">Add Post</a>
+                    <h4>Posts
+                        <a href="{{ url('posts/create') }}" class="btn btn-primary float-end">Add Post</a>
+                    </h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-striped">
@@ -57,6 +58,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="col-md-4 mt-4 float-end">
+                {{ $post->links() }}
             </div>
         </div>
     </div>

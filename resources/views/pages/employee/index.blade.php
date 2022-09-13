@@ -8,9 +8,16 @@
                         {{ session('status') }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    <ul class="alert alert-warning">
+                        @foreach ($errors->all() as $error)
+                        <li> {{ $error }}</li>
+                        @endforeach
+                    </ul>
+                @endif
                 <div class="card">
                     <div class="card-header">
-                        <h4>Fetch Data From DB Using Elequont Modoel
+                        <h4>Employee Data
                             <a href="{{ url('add-employee') }}" class="btn btn-primary float-end">Add Employee</a>
                         </h4>
                     </div>

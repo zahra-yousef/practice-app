@@ -19,8 +19,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/add-employee',[ApiController::class, 'create']);
-Route::get('/employees',[ApiController::class, 'show']);
-Route::get('/employee/{id}',[ApiController::class, 'showById']);
-Route::put('/update-employee/{id}',[ApiController::class, 'update']);
-Route::delete('/delete-employee/{id}',[ApiController::class, 'destroy']);
+//Employee
+Route::post('/add-employee',[ApiController::class, 'createEmp']);
+Route::get('/employees',[ApiController::class, 'showEmp']);
+Route::get('/employee/{id}',[ApiController::class, 'showEmpById']);
+Route::put('/update-employee/{id}',[ApiController::class, 'updateEmp']);
+Route::delete('/delete-employee/{id}',[ApiController::class, 'destroyEmp']);
+
+//Post
+Route::post('/add-post',[ApiController::class, 'createPost']);
+Route::get('/posts',[ApiController::class, 'showPost']);
+Route::get('/post/{id}',[ApiController::class, 'showPostById']);
+Route::put('/update-post/{id}',[ApiController::class, 'updatePost']);
+Route::delete('/delete-post/{id}',[ApiController::class, 'destroyPost']);

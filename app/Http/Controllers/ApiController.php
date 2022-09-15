@@ -26,12 +26,12 @@ class ApiController extends Controller
     }
     
     public function showEmpById($id){
-        $employee = Employee::find($id);     
+        $employee = Employee::findOrFail($id);     
         return response()->json($employee);
     }
 
     public function updateEmp(Request $request, $id){
-        $employee = Employee::find($id);
+        $employee = Employee::findOrFail($id);
         $employee->name = $request->input('name');
         $employee->email = $request->input('email');
         $employee->phone = $request->input('phone');
@@ -70,33 +70,34 @@ class ApiController extends Controller
     }
     
     public function showPostById($id){
-        $post = Post::find($id);     
+        $post = Post::findOrFail($id);     
         return response()->json($post);
     }
 
     public function updatePost(Request $request, $id){
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->user_id = 2; //Auth::id();
         $post->title = $request->input('title');
         $post->description = $request->input('description');
-        // if($request->hasFile('image')){
-        //     $destination_path = 'uploads/blog/'.$post->image;
-        //     if(File::exists($destination_path)){
-        //         File::delete($destination_path);
-        //     }
-        //     $file = $request->file('image') ;
-        //     $extention = $file->getClientoriginalExtension();
-        //     $filename = time().'.'.$extention;
-        //     $file->move('uploads/blog/',$filename);
-        //     $post->image = $filename;
-        // }
+
+        $destination_path = public_path('uploads/blog/'.$post->image);
+        if($request->hasFile('image')){
+            if(File::exists($destination_path)){
+                File::delete($destination_path);
+            }
+            $file = $request->file('image') ;
+            $extention = $file->getClientoriginalExtension();
+            $filename = time().'.'.$extention;
+            $file->move('uploads/blog/',$filename);
+            $post->image = $filename;
+        }
         $post->status = $request->input('status') == true ? '1':'0';
         $post->update();
         return response()->json($request);
     }
 
     public function destroyPost($id){
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->delete();
         return response()->json($post);
     }

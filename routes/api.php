@@ -30,5 +30,5 @@ Route::delete('/delete-employee/{id}',[ApiController::class, 'destroyEmp']);
 Route::post('/add-post',[ApiController::class, 'createPost']);
 Route::get('/posts',[ApiController::class, 'showPost']);
 Route::get('/post/{id}',[ApiController::class, 'showPostById']);
-Route::put('/update-post/{id}',[ApiController::class, 'updatePost']);
+Route::put('/update-post/{id}','App\Http\Controllers\ApiController@updatePost'); 
 Route::delete('/delete-post/{id}',[ApiController::class, 'destroyPost']);

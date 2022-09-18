@@ -25,7 +25,7 @@ class RegisterController extends BaseController
         ]);
    
         if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());       
+            return response(['Validation Message'=>$validator->errors()]);     
         }
    
         $input = $request->all();
@@ -54,5 +54,14 @@ class RegisterController extends BaseController
         else{ 
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
+    }
+
+    public function logout()
+    {
+        Auth::user()->tokens->each(function($token, $key) {
+            $token->delete();
+        });
+    
+        return response()->json('Successfully logged out');
     }
 }

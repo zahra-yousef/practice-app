@@ -14,27 +14,56 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
-                            <div>
-                                <label for="">Name</label>
-                                <input type="text" name="name" value="{{ $employee->name }}" class="form-control">
-                            </div>
-
-                            <div>
-                                <label for="">Email</label>
-                                <input type="text" name="email" value="{{ $employee->email }}" class="form-control">
-                            </div>
-                            <div>
-                                <label for="">Phone</label>
-                                <input type="text" name="phone" value="{{ $employee->phone }}" class="form-control">
-                            </div>
-                            <div>
-                                <label for="">Designation</label>
-                                <input type="text" name="designation" value="{{ $employee->designation }}" class="form-control">
-                            </div>
-                            <div>
-                                <label for="">Status</label>
-                                <input type="checkbox" name="status" {{ $employee->status == 1 ? 'checked' : ''}}>Unactive-1 / Active-0
-                            </div>
+                            <label for="">Name</label>
+                            <input 
+                                type="text" 
+                                name="name" 
+                                value="{{ $employee->name }}"
+                                class="form-control is-valid @error('name') is-invalid @enderror"
+                            >
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Email</label>
+                            <input 
+                                type="text" 
+                                name="email" 
+                                value="{{ $employee->email }}" 
+                                class="form-control is-valid @error('email') is-invalid @enderror"
+                            >
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Phone</label>
+                            <input 
+                                type="text" 
+                                name="phone" 
+                                value="{{ $employee->phone }}" 
+                                class="form-control is-valid @error('phone') is-invalid @enderror"
+                            >
+                            @error('phone')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Designation</label>
+                            <input 
+                                type="text" 
+                                name="designation" 
+                                value="{{ $employee->designation }}" 
+                                class="form-control is-valid @error('designation') is-invalid @enderror"
+                            >
+                            @error('designation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Status</label>
+                            <input type="checkbox" name="status" {{ $employee->status == 1 ? 'checked' : ''}}> Unactive-1 / Active-0
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Upadate</button>

@@ -6,12 +6,13 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $post = Post::paginate(3);
+        $post = Post::paginate(5);
         return view('blog.index',compact('post'));
     }
 
@@ -22,6 +23,20 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        // Validate data
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:3|unique:posts',
+            'description' => 'required|string',
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+        ]);
+
+        // If validation fails go back to pre page 
+        if ($validator->fails()) {
+            return redirect('posts/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $post = new Post;
         $post->user_id = Auth::id();
         $post->title = $request->input('title');
@@ -46,13 +61,27 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         return view('blog.edit',compact('post'));
     }
 
     public function update(Request $request, $id)
     {
-        $post = Post::find($id);
+        // Validate data
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:3',
+            'description' => 'required|string',
+            'image' => 'mimes:jpeg,jpg,png,gif|max:10000',
+        ]);
+
+        // If validation fails go back to pre page 
+        if ($validator->fails()) {
+            return redirect('posts/'.$id.'/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $post = Post::findOrFail($id);
         $post->user_id = Auth::id();
         $post->title = $request->input('title');
         $post->description = $request->input('description');
@@ -75,7 +104,7 @@ class PostController extends Controller
 
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $destination_path = 'uploads/blog/'.$post->image;
         if(File::exists($destination_path)){
             File::delete($destination_path);

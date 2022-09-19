@@ -19,19 +19,42 @@
                         @method('PUT')
                         <div class="form-group mb-3">
                             <label for="">Title</label>
-                            <input type="text" name="title" class="form-control" value="{{ $post->title }}">
+                            <input type="text" 
+                                name="title" 
+                                value="{{ $post->title }}"
+                                class="form-control  is-valid @error('title') is-invalid @enderror" 
+                            >
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Description</label>
-                            <textarea name="description" class="form-control" rows="3">{!! $post->description !!}</textarea>
+                            <textarea 
+                                name="description" 
+                                rows="3"
+                                class="form-control is-valid @error('description') is-invalid @enderror"  
+                            >
+                                {!! $post->description !!}
+                            </textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Image (File Upload)</label>
-                            <input type="file" name="image" class="form-control" required>
+                            <input 
+                                type="file" 
+                                name="image" 
+                                class="form-control is-valid @error('image') is-invalid @enderror" 
+                            >
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Status</label>
-                            <input type="checkbox" name="status" {!! $post->status == 1 ? 'checked':'' !!}> 0-show, 1-hide
+                            <input type="checkbox" name="status" {!! $post->status == 1 ? 'checked':'' !!}> 0-show / 1-hide
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Update</button>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class = "row justify-content-center">
-        <div class = "col-md-6 mt-4">
+        <div class = "col-md-7 mt-4">
             <div class="card">
                 <div class="card-header">
                     <h4>Add Employee
@@ -13,23 +13,52 @@
                     <form action="{{ url('store-employee') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
-                            <div>
-                                <label for="">Name</label>
-                                <input type="text" name="name" class="form-control">
-                            </div>
-
-                            <div>
-                                <label for="">Email</label>
-                                <input type="text" name="email" class="form-control">
-                            </div>
-                            <div>
-                                <label for="">Phone</label>
-                                <input type="text" name="phone" class="form-control">
-                            </div>
-                            <div>
-                                <label for="">Designation</label>
-                                <input type="text" name="designation" class="form-control">
-                            </div>
+                            <label for="">Name</label>
+                            <input 
+                                type="text" 
+                                name="name" 
+                                value="{{Request::old('name')}}"  
+                                class="form-control is-valid @error('name') is-invalid @enderror"
+                            >
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Email</label>
+                            <input 
+                                type="text" 
+                                name="email" 
+                                value="{{Request::old('email')}}"  
+                                class="form-control is-valid @error('email') is-invalid @enderror"
+                            >
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Phone</label>
+                            <input 
+                                type="text" 
+                                name="phone" 
+                                value="{{Request::old('phone')}}"  
+                                class="form-control is-valid @error('phone') is-invalid @enderror"
+                            >
+                            @error('phone')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Designation</label>
+                            <input 
+                                type="text" 
+                                name="designation"
+                                value="{{Request::old('designation')}}"   
+                                class="form-control is-valid @error('designation') is-invalid @enderror"
+                            >
+                            @error('designation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Submit</button>

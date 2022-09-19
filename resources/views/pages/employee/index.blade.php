@@ -36,28 +36,37 @@
                               </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                @foreach ($employee as $empdata)
+                                @if(!empty($employee) && $employee->count())
+                                    @foreach ($employee as $empdata)
+                                        <tr>
+                                            <th>{{ $empdata->id }}</th>
+                                            <td>{{ $empdata->name }}</td>
+                                            <td>{{ $empdata->email }}</td>
+                                            <td>{{ $empdata->phone }}</td>
+                                            <td>{{ $empdata->designation }}</td>
+                                            <td>{{ $empdata->status }}</td>
+                                            <td>
+                                                <a href="{{ url('edit-employee/'.$empdata->id) }}" class="btn btn-primary">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ url('delete-employee/'.$empdata->id) }}" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <th>{{ $empdata->id }}</th>
-                                        <td>{{ $empdata->name }}</td>
-                                        <td>{{ $empdata->email }}</td>
-                                        <td>{{ $empdata->phone }}</td>
-                                        <td>{{ $empdata->designation }}</td>
-                                        <td>{{ $empdata->status }}</td>
-                                        <td>
-                                            <a href="{{ url('edit-employee/'.$empdata->id) }}" class="btn btn-primary">Edit</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ url('delete-employee/'.$empdata->id) }}" class="btn btn-danger">Delete</a>
-                                        </td>
+                                        <td colspan="8">There are no data</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                           </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="row mt-4 float-end">
+            {{ $employee->onEachSide(5)->links() }}
+        </div>
+    </div>   
 @endsection
                                         

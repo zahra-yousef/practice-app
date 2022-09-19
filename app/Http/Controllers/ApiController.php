@@ -15,7 +15,7 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             'email' => 'required|email|unique:employees',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|digits:10',
             'designation' => 'required|string',
         ],
         [
@@ -65,7 +65,7 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3',
             'email' => 'required|email',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|digits:10',
             'designation' => 'required|string',
             'status' => 'nullable|integer|min:0|max:1'
         ],
@@ -90,7 +90,7 @@ class ApiController extends Controller
         );
    
         if($validator->fails()){
-            return response(['msg'=>$validator->errors()]);
+            return response(['Validation Message'=>$validator->errors()]);
         }
 
         // Retrieve the validated input...
@@ -132,7 +132,7 @@ class ApiController extends Controller
         );
    
         if($validator->fails()){
-            return response(['msg'=>$validator->errors()]);
+            return response(['Validation Message'=>$validator->errors()]);
         }
         
         $post = new Post;
@@ -182,7 +182,7 @@ class ApiController extends Controller
         );
    
         if($validator->fails()){
-            return response(['msg'=>$validator->errors()]);
+            return response(['Validation Message'=>$validator->errors()]);
         }
 
         $post = Post::findOrFail($id);

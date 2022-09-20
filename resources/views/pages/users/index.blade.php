@@ -23,11 +23,12 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <form action="{{ url('search-employee') }}" method="GET">
+                            <form action="{{ url('search-user') }}" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="search " name="emp_search" class="form-control" placeholder="Enter employee username or email">
+                                    <input type="search " name="user_search" class="form-control" placeholder="Enter user first name, last name or email">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit">Search</button>
+                                        <a href="{{ url('users/') }}" class="btn btn-success">Refresh</i></a>
                                     </div>
                                 </div>
                             </form>
@@ -45,19 +46,19 @@
                               </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                                @if(!empty($employee) && $employee->count())
-                                    @foreach ($employee as $empdata)
+                                @if(!empty($users) && $users->count())
+                                    @foreach ($users as $userdata)
                                         <tr>
-                                            <th>{{ $empdata->id }}</th>
-                                            <td>{{ $empdata->name }}</td>
-                                            <td>{{ $empdata->last_name }}</td>
-                                            <td>{{ $empdata->email }}</td>
-                                            <td>{{ $empdata->phone }}</td>
+                                            <th>{{ $userdata->id }}</th>
+                                            <td>{{ $userdata->name }}</td>
+                                            <td>{{ $userdata->last_name }}</td>
+                                            <td>{{ $userdata->email }}</td>
+                                            <td>{{ $userdata->phone }}</td>
                                             <td>
-                                                <a href="{{ url('edit-user/'.$empdata->id) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ url('edit-user/'.$userdata->id) }}" class="btn btn-primary">Edit</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('delete-user/'.$empdata->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ url('delete-user/'.$userdata->id) }}" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -73,7 +74,7 @@
             </div>
         </div>
         <div class="row mt-4 float-end">
-            {{ $employee->onEachSide(5)->links() }}
+            {{ $users->onEachSide(5)->links() }}
         </div>
     </div>   
 @endsection

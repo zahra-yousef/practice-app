@@ -5,20 +5,20 @@
         <div class = "col-md-6 mt-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Edit Employee Data
-                        <a href="{{ url('employee') }}" class="btn btn-danger float-end">BACK</a>
+                    <h4>Edit User Data
+                        <a href="{{ url('users') }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('update-employee/'.$employee->id) }}" method="POST">
+                    <form action="{{ url('update-user/'.$user->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
-                            <label for="">Name</label>
+                            <label for="">First Name</label>
                             <input 
                                 type="text" 
                                 name="name" 
-                                value="{{ $employee->name }}"
+                                value="{{ $user->name }}"
                                 class="form-control is-valid @error('name') is-invalid @enderror"
                             >
                             @error('name')
@@ -26,14 +26,14 @@
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Email</label>
+                            <label for="">Last Name</label>
                             <input 
                                 type="text" 
-                                name="email" 
-                                value="{{ $employee->email }}" 
-                                class="form-control is-valid @error('email') is-invalid @enderror"
+                                name="last_name" 
+                                value="{{ $user->last_name }}"
+                                class="form-control is-valid @error('last_name') is-invalid @enderror"
                             >
-                            @error('email')
+                            @error('last_name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -42,7 +42,7 @@
                             <input 
                                 type="text" 
                                 name="phone" 
-                                value="{{ $employee->phone }}" 
+                                value="{{ $user->phone }}" 
                                 class="form-control is-valid @error('phone') is-invalid @enderror"
                             >
                             @error('phone')
@@ -50,20 +50,27 @@
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Designation</label>
+                            <label for="">Email</label>
                             <input 
                                 type="text" 
-                                name="designation" 
-                                value="{{ $employee->designation }}" 
-                                class="form-control is-valid @error('designation') is-invalid @enderror"
+                                name="email" 
+                                value="{{ $user->email }}" 
+                                class="form-control is-valid @error('email') is-invalid @enderror"
                             >
-                            @error('designation')
+                            @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <label for="">Status</label>
-                            <input type="checkbox" name="status" {{ $employee->status == 1 ? 'checked' : ''}}> Unactive-1 / Active-0
+                            <label for="">Password</label>
+                            <input 
+                                type="password" 
+                                name="password" 
+                                class="form-control is-valid @error('password') is-invalid @enderror"
+                            >
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Upadate</button>

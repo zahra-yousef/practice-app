@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PageController;
 
 /*
@@ -29,7 +30,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Accessible by Admin
 Route::middleware(['auth'])->group(function(){
     //Users Route
-    Route::get('/employee', [EmployeeController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/search-user', [UserController::class, 'search']);
 });
 
 //Accessible by Admin
@@ -47,11 +49,10 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/search-employee', [EmployeeController::class, 'search']);
 
      //Users Routes
-    Route::get('/add-user', [EmployeeController::class, 'create']);
-    Route::post('/store-user', [EmployeeController::class, 'store']);
-    Route::get('/edit-user/{id}', [EmployeeController::class, 'edit']);
-    Route::put('/update-user/{id}', [EmployeeController::class, 'update']);
-    Route::get('/delete-user/{id}', [EmployeeController::class, 'destroy']);
-    Route::get('/search-user', [EmployeeController::class, 'search']);
+    Route::get('/add-user', [UserController::class, 'create']);
+    Route::post('/store-user', [UserController::class, 'store']);
+    Route::get('/edit-user/{id}', [UserController::class, 'edit']);
+    Route::put('/update-user/{id}', [UserController::class, 'update']);
+    Route::get('/delete-user/{id}', [UserController::class, 'destroy']);
 });
 

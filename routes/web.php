@@ -17,6 +17,7 @@ use App\Http\Controllers\PageController;
 |
 */
 
+//Accessible by Guest
 Route::get('/', [PageController::class, 'index']);
 Route::get('/about', [PageController::class, 'about']);
 Route::get('/users/{id}/{comp}', [PageController::class, 'users']);
@@ -25,6 +26,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Accessible by Admin
+Route::middleware(['auth'])->group(function(){
+    //Users Route
+    Route::get('/employee', [EmployeeController::class, 'index']);
+});
+
+//Accessible by Admin
 Route::middleware(['auth','isAdmin'])->group(function(){
     //Posts Routes
     Route::resource('posts', PostController::class);
@@ -36,5 +44,14 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/edit-employee/{id}', [EmployeeController::class, 'edit']);
     Route::put('/update-employee/{id}', [EmployeeController::class, 'update']);
     Route::get('/delete-employee/{id}', [EmployeeController::class, 'destroy']);
+    Route::get('/search-employee', [EmployeeController::class, 'search']);
+
+     //Users Routes
+    Route::get('/add-user', [EmployeeController::class, 'create']);
+    Route::post('/store-user', [EmployeeController::class, 'store']);
+    Route::get('/edit-user/{id}', [EmployeeController::class, 'edit']);
+    Route::put('/update-user/{id}', [EmployeeController::class, 'update']);
+    Route::get('/delete-user/{id}', [EmployeeController::class, 'destroy']);
+    Route::get('/search-user', [EmployeeController::class, 'search']);
 });
 

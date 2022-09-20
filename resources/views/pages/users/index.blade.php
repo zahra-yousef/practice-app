@@ -17,8 +17,8 @@
                 @endif
                 <div class="card">
                     <div class="card-header">
-                        <h4>Employee Data
-                            <a href="{{ url('add-employee') }}" class="btn btn-primary float-end">Add Employee</a>
+                        <h4>Users Data
+                            <a href="{{ url('add-user') }}" class="btn btn-primary float-end">Add User</a>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -36,11 +36,10 @@
                             <thead>
                               <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Designation</th>
-                                <th>Status</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                               </tr>
@@ -51,15 +50,14 @@
                                         <tr>
                                             <th>{{ $empdata->id }}</th>
                                             <td>{{ $empdata->name }}</td>
+                                            <td>{{ $empdata->last_name }}</td>
                                             <td>{{ $empdata->email }}</td>
                                             <td>{{ $empdata->phone }}</td>
-                                            <td>{{ $empdata->designation }}</td>
-                                            <td>{{ $empdata->status }}</td>
                                             <td>
-                                                <a href="{{ url('edit-employee/'.$empdata->id) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ url('edit-user/'.$empdata->id) }}" class="btn btn-primary">Edit</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('delete-employee/'.$empdata->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ url('delete-user/'.$empdata->id) }}" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

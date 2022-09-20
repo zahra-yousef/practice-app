@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
 class EmployeeController extends Controller
 {
     public function index(){
@@ -85,4 +84,12 @@ class EmployeeController extends Controller
         $employee->delete();
         return redirect('employee')->with('status','Employee Data Deleted Successfully');
     } 
+
+    public function search(Request $requset){
+        $search = $requset->get('emp_search');
+        $employee = Employee::where('name','like','%'.$search.'%')
+                ->orWhere('email','like','%'.$search.'%')
+                ->paginate(5);
+        return view('pages.employee.index',compact('employee'));
+    }
 }

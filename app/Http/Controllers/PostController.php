@@ -13,12 +13,12 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::paginate(5);
-        return view('blog.index',compact('post'));
+        return view('pages.blog.index',compact('post'));
     }
 
     public function create()
     {
-        return view('blog.create');
+        return view('pages.blog.create');
     }
 
     public function store(Request $request)
@@ -62,7 +62,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('blog.edit',compact('post'));
+        return view('pages.blog.edit',compact('post'));
     }
 
     public function update(Request $request, $id)

@@ -99,4 +99,9 @@ class UserController extends Controller
                 ->paginate(5);
         return view('pages.users.index',compact('users'));
     }
+
+    public function show($id){
+        $user = User::findOrFail($id);
+        return view('pages.users.show',compact('user'));
+    }
 }

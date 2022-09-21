@@ -29,9 +29,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Accessible by Admin
 Route::middleware(['auth'])->group(function(){
-    //Users Route
+    //Users Routes
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/search-user', [UserController::class, 'search']);
+    Route::get('/show-user/{id}', [UserController::class, 'show']);
 });
 
 //Accessible by Admin

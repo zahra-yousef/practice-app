@@ -25,10 +25,10 @@
                         <div>
                             <form action="{{ url('search-user') }}" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="search " name="user_search" class="form-control" placeholder="Enter user first name, last name or email">
+                                    <input type="search " name="user_search" id="search" class="form-control" placeholder="Enter user first name, last name or email">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit">Search</button>
-                                        <a href="{{ url('users/') }}" class="btn btn-success">Refresh</i></a>
+                                        <a href="{{ url('users/') }}" class="btn btn-warning text-white">Refresh</a>
                                     </div>
                                 </div>
                             </form>
@@ -76,6 +76,11 @@
         <div class="row mt-4 float-end">
             {{ $users->onEachSide(5)->links() }}
         </div>
-    </div>   
+    </div>
+    <script type="text/javascript">
+        $('#search').on('keyup',function(){
+            alert('hello');
+        })
+    </script>
 @endsection
                                         

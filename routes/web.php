@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -55,5 +56,13 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/edit-user/{id}', [UserController::class, 'edit']);
     Route::put('/update-user/{id}', [UserController::class, 'update']);
     Route::get('/delete-user/{id}', [UserController::class, 'destroy']);
+
+    //Ajax-Users Routes
+    Route::get('/ajax-users', [AjaxUserController::class, 'index']);
+    Route::get('/ajax-show-users', [AjaxUserController::class, 'show']);
+    Route::get('/ajax-search-user', [AjaxUserController::class, 'search']);
+    Route::post('/ajax-add-user', [AjaxUserController::class, 'store']);
+    Route::put('/ajax-update-user/{id}', [AjaxUserController::class, 'update']);
+    Route::delete('/ajax-delete-user/{id}', [AjaxUserController::class, 'destroy']);
 });
 

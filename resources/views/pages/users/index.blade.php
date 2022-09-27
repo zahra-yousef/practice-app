@@ -77,10 +77,5 @@
             {{ $users->onEachSide(5)->links() }}
         </div>
     </div>
-    <script type="text/javascript">
-        $('#search').on('keyup',function(){
-            alert('hello');
-        })
-    </script>
 @endsection
                                         

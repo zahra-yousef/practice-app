@@ -18,17 +18,21 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Users Data
-                            <a href="{{ url('add-user') }}" class="btn btn-primary float-end">Add User</a>
+                            <a href="{{ route('users.create') }}" class="btn btn-primary float-end">Add User</a>
                         </h4>
                     </div>
                     <div class="card-body">
                         <div>
-                            <form action="{{ url('search-user') }}" method="GET">
+                            <form action="{{ route('users.search') }}" method="GET">
                                 <div class="input-group mb-3">
                                     <input type="search " name="user_search" id="search" class="form-control" placeholder="Enter user first name, last name or email">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Search</button>
-                                        <a href="{{ url('users/') }}" class="btn btn-warning text-white">Refresh</a>
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                        <a href="{{ route('users.index') }}" class="btn btn-warning text-white">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -55,10 +59,10 @@
                                             <td>{{ $userdata->email }}</td>
                                             <td>{{ $userdata->phone }}</td>
                                             <td>
-                                                <a href="{{ url('edit-user/'.$userdata->id) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ route('users.edit', $userdata->id) }}" class="btn btn-primary">Edit</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('delete-user/'.$userdata->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ route('users.destroy', $userdata->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{ $userdata->name }} account?')">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

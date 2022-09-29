@@ -9,7 +9,10 @@ class EmployeeController extends Controller
 {
     public function index(){
         $employee = Employee::paginate(5);
-        return view('pages.employee.index',compact('employee'));
+        //return view('pages.employee.index',compact('employee'));
+        return view('pages.employee.index',[
+            'employee' => $employee,
+        ]);
     }
 
     public function create(){
@@ -19,9 +22,9 @@ class EmployeeController extends Controller
     public function store(Request $requset){
         // Validate data
         $validator = Validator::make($requset->all(), [
-            'name' => 'required|min:3',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3',
             'email' => 'required|email|unique:employees',
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'required|numeric|digits:10|unique:employees',
             'designation' => 'required',
         ]);
 
@@ -46,15 +49,17 @@ class EmployeeController extends Controller
 
     public function edit($id){
         $employee = Employee::findOrFail($id);
-        return view('pages.employee.edit',compact('employee'));
+        return view('pages.employee.edit',[
+            'employee' => $employee,
+        ]);
     }
 
     public function update(Request $requset, $id){
         // Validate data
         $validator = Validator::make($requset->all(), [
-            'name' => 'required|min:3',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3',
             'email' => 'required|email',
-            'phone' => 'required|numeric|digits:9',
+            'phone' => 'required|numeric|digits:10',
             'designation' => 'required',
             'status' => 'nullable',
         ]);
@@ -90,6 +95,9 @@ class EmployeeController extends Controller
         $employee = Employee::where('name','like','%'.$search.'%')
                 ->orWhere('email','like','%'.$search.'%')
                 ->paginate(5);
-        return view('pages.employee.index',compact('employee'));
+        // return view('pages.employee.index',compact('employee'));
+        return view('pages.employee.index',[
+            'employee' => $employee,
+        ]);
     }
 }

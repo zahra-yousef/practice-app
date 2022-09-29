@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>{{ $user->name }} Information
-                        <a href="{{ url('users') }}" class="btn btn-danger float-end">BACK</a>
+                        <a href="{{ route('users.show') }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">

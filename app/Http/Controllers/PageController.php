@@ -15,9 +15,4 @@ class PageController extends Controller
         $body = "This is my about us page";
         return view('pages.about', compact('title','body'));
     }
-
-    public function users($id, $comp){
-        $name = 'Noor - '.$id. " COP - ".$comp;
-        return view('pages.users', compact('name'));
-    }
 }

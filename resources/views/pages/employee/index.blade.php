@@ -18,16 +18,21 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Employee Data
-                            <a href="{{ url('add-employee') }}" class="btn btn-primary float-end">Add Employee</a>
+                            <a href="{{ route('employees.create') }}" class="btn btn-primary float-end">Add Employee</a>
                         </h4>
                     </div>
                     <div class="card-body">
                         <div>
-                            <form action="{{ url('search-employee') }}" method="GET">
+                            <form action="{{ route('employees.search') }}" method="GET">
                                 <div class="input-group mb-3">
                                     <input type="search " name="emp_search" class="form-control" placeholder="Enter employee username or email">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit">Search</button>
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                        <a href="{{ route('employees.index') }}" class="btn btn-warning text-white">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -56,10 +61,11 @@
                                             <td>{{ $empdata->designation }}</td>
                                             <td>{{ $empdata->status }}</td>
                                             <td>
-                                                <a href="{{ url('edit-employee/'.$empdata->id) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ route('employees.edit', $empdata->id) }}" class="btn btn-primary">Edit</a>
                                             </td>
                                             <td>
-                                                <a href="{{ url('delete-employee/'.$empdata->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ route('employees.destroy', $empdata->id) }}" class="btn btn-danger" 
+                                                   onclick="return confirm('Are you sure to delete {{ $empdata->name }} data?')">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

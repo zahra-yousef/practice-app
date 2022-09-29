@@ -13,7 +13,7 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::paginate(5);
-        return view('pages.blog.index',compact('post'));
+        return view('pages.blog.index',compact('post')); 
     }
 
     public function create()
@@ -51,7 +51,7 @@ class PostController extends Controller
         $post->status = $request->input('status') == true ? '1':'0';
         $post->save();
 
-        return redirect()->back()->with('status','Post Added Successfully');
+        return redirect('posts')->with('status','Post Added Successfully');
     }
 
     public function show($id)
@@ -99,7 +99,7 @@ class PostController extends Controller
         $post->status = $request->input('status') == true ? '1':'0';
         $post->update();
 
-        return redirect()->back()->with('status','Post Updated Successfully');
+        return redirect('posts')->with('status','Post Updated Successfully');
     }
 
     public function destroy($id)
@@ -110,6 +110,6 @@ class PostController extends Controller
             File::delete($destination_path);
         }
         $post->delete();
-        return redirect()->back()->with('status','Post Deleted Successfully');
+        return redirect('posts')->with('status','Post Deleted Successfully');
     }
 }

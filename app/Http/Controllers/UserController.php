@@ -9,7 +9,9 @@ class UserController extends Controller
 {
     public function index(){
         $users= User::paginate(5);
-        return view('pages.users.index',compact('users'));
+        return view('pages.users.index',[
+            'users' => $users,
+        ]);
     }
 
     public function create(){
@@ -19,11 +21,12 @@ class UserController extends Controller
     public function store(Request $requset){
         // Validate data
         $validator = Validator::make($requset->all(), [
-            'name' => 'required|min:3',
-            'last_name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
+            'last_name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
             'phone' => 'required|numeric|digits:10|unique:users',
-            'password' => 'required|min:6',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8',
+            'role_as' => 'required|integer|digits_between:0,1'
         ]);
 
         // If validation fails go back to pre page 
@@ -48,17 +51,20 @@ class UserController extends Controller
 
     public function edit($id){
         $user = User::findOrFail($id);
-        return view('pages.users.edit',compact('user'));
+        return view('pages.users.edit',[
+            'user' => $user,
+        ]);
     }
 
     public function update(Request $requset, $id){
         // Validate data
         $validator = Validator::make($requset->all(), [
-            'name' => 'required|min:3',
-            'last_name' => 'required|min:3',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
+            'last_name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
             'phone' => 'required|numeric|digits:10',
-            'email' => 'required|email',
-            'password' => 'nullable|min:6',
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|min:8',
+            'role_as' => 'required|integer|digits_between:0,1'
         ]);
 
         // If validation fails go back to pre page 
@@ -97,11 +103,15 @@ class UserController extends Controller
                 ->orWhere('last_name','like','%'.$search.'%')
                 ->orWhere('email','like','%'.$search.'%')
                 ->paginate(5);
-        return view('pages.users.index',compact('users'));
+        return view('pages.users.index',[
+            'users' => $users,
+        ]);
     }
 
     public function show($id){
         $user = User::findOrFail($id);
-        return view('pages.users.show',compact('user'));
+        return view('pages.users.show',[
+            'user' => $user,
+        ]);
     }
 }

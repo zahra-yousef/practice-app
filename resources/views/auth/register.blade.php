@@ -67,6 +67,25 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="role_as"class="col-md-4 col-form-label text-md-end">{{ __('User Role') }}</label>
+                            <div class="col-md-6">
+                                <select name="role_as" 
+                                    id="role_as" 
+                                    class="form-control @error('role_as') is-invalid @enderror"
+                                    required autocomplete="role_as">
+                                    <option value="">Select a Role</option>
+                                    <option value="1" {{ (old('role_as') == '1') ? 'selected' : '' }}>Admin</option>
+                                    <option value="0" {{ (old('role_as') == '0') ? 'selected' : '' }}>Normal user</option>
+                                </select>
+                                @error('role_as')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

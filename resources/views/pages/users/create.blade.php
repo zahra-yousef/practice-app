@@ -6,11 +6,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Add User
-                        <a href="{{ url('users') }}" class="btn btn-danger float-end">BACK</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('store-user') }}" method="POST">
+                    <form action="{{ route('users.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="">Name</label>
@@ -39,7 +39,7 @@
                         <div class="form-group mb-3">
                             <label for="">Phone</label>
                             <input 
-                                type="text" 
+                                type="number" 
                                 name="phone" 
                                 value="{{Request::old('phone')}}"  
                                 class="form-control is-valid @error('phone') is-invalid @enderror"
@@ -57,6 +57,21 @@
                                 class="form-control is-valid @error('email') is-invalid @enderror"
                             >
                             @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="role_as">User Role</label>
+                            <select 
+                                id="role_as" 
+                                name="role_as"   
+                                class="form-control is-valid @error('role_as') is-invalid @enderror"
+                            >
+                                <option value="">Select a Role</option>
+                                <option value="1" {{ (old('role_as') == '1') ? 'selected' : '' }}>Admin</option>
+                                <option value="0" {{ (old('role_as') == '0') ? 'selected' : '' }}>Normal user</option>
+                            </select>
+                            @error('role_as')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

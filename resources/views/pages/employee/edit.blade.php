@@ -6,11 +6,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Edit Employee Data
-                        <a href="{{ url('employee') }}" class="btn btn-danger float-end">BACK</a>
+                        <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('update-employee/'.$employee->id) }}" method="POST">
+                    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
@@ -42,7 +42,7 @@
                             <input 
                                 type="text" 
                                 name="phone" 
-                                value="{{ $employee->phone }}" 
+                                value="{{ '0'.$employee->phone }}" 
                                 class="form-control is-valid @error('phone') is-invalid @enderror"
                             >
                             @error('phone')

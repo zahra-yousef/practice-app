@@ -28,6 +28,22 @@ class AjaxUserController extends Controller
         }  
     }
 
+    public function showSingleUser($id){
+        $user = User::find($id);
+        if(!empty($user) && $user->count()){
+            return response()->json([
+                'status' => 200,
+                'user'=>$user,
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => 404,
+                'message'=> 'Not data found.',
+            ]);
+        }  
+    }
+
     public function search(Request $requset){
         if($requset->ajax()){
             $users = User::where('name','like','%'.$requset->search.'%')
@@ -50,8 +66,8 @@ class AjaxUserController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-            'last_name' => 'required|min:3',
+            'name' => 'required|alpha|min:3',
+            'last_name' => 'required|alpha|min:3',
             'email' => 'required|email|unique:users',
             'phone' => 'required|numeric|digits:10|unique:users',
             'password' => 'required|min:6',
@@ -82,8 +98,8 @@ class AjaxUserController extends Controller
     public function update(Request $request, $id){
         // Validate data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-            'last_name' => 'required|min:3',
+            'name' => 'required|alpha|min:3',
+            'last_name' => 'required|alpha|min:3',
             'phone' => 'required|numeric|digits:10',
             'email' => 'required|email',
             'password' => 'nullable|min:6',

@@ -3,18 +3,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 mt-4">
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
             <div class="card">
                 <div class="card-header">
                     Edit Posts
-                    <a href="{{ url('posts') }}" class="btn btn-danger float-end">BACK</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('posts/'.$post->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">

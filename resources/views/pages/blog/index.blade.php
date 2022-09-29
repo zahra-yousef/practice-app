@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Posts
-                        <a href="{{ url('posts/create') }}" class="btn btn-primary float-end">Add Post</a>
+                        <a href="{{ route('posts.create') }}" class="btn btn-primary float-end">Add Post</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -45,13 +45,13 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ url('posts/'.$item->id.'/edit') }}" class="btn btn-sm btn-primary">Edit</a>
+                                            <a href="{{ route('posts.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <form action="{{ url('posts/'.$item->id) }}" method="POST">
+                                            <form action="{{ route('posts.destroy', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</a>
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this post ({{ $item->title }} )?')">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

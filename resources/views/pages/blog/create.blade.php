@@ -11,10 +11,10 @@
             <div class="card">
                 <div class="card-header">
                     Add Posts
-                    <a href="{{ url('posts') }}" class="btn btn-danger float-end">BACK</a>
+                    <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('posts') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="">Title</label>

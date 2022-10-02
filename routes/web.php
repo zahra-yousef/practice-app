@@ -27,19 +27,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Accessible by Admin
+//Accessible by User
 Route::middleware(['auth'])->group(function(){
-    //Users Routes
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/search-user', [UserController::class, 'search'])->name('users.search');
-    Route::get('/show-user/{id}', [UserController::class, 'show'])->name('users.show');;
+    //Posts Routes
+    Route::resource('posts', PostController::class);
 });
 
 //Accessible by Admin
 Route::middleware(['auth','isAdmin'])->group(function(){
-    //Posts Routes
-    Route::resource('posts', PostController::class);
-
     //Employees Routes
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/add-employee', [EmployeeController::class, 'create'])->name('employees.create');
@@ -49,7 +44,10 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/delete-employee/{id}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
     Route::get('/search-employee', [EmployeeController::class, 'search'])->name('employees.search');
 
-     //Users Routes
+    //Users Routes
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/search-user', [UserController::class, 'search'])->name('users.search');
+    Route::get('/show-user/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/add-user', [UserController::class, 'create'])->name('users.create');
     Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
     Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('users.edit');

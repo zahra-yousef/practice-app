@@ -10,12 +10,12 @@
             <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('employees.index') }}">Employee</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url('posts') }}">Posts</a>
           </li>
           @if (Auth::user() && Auth::user()->role_as == 1)
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('employees.index') }}">Employee</a>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Users

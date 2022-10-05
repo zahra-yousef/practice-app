@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Edit User Data
-                        <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
+                        <a href="{{ route('users.index') }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">

@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Edit Employee Data
-                        <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
+                        <a href="{{ route('employees.index') }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -63,7 +63,12 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Status</label>
-                            <input type="checkbox" name="status" {{ $employee->status == 1 ? 'checked' : ''}}> Unactive-1 / Active-0
+                            <input 
+                                type="checkbox" 
+                                name="status" 
+                                value="1"
+                                {{ $employee->status == 1 ? 'checked' : ''}}
+                            > Unactive-0 / Active-1
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Upadate</button>

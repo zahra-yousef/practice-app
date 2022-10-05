@@ -30,6 +30,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //Accessible by User
 Route::middleware(['auth'])->group(function(){
     //Posts Routes
+    Route::get('/search-post', [PostController::class, 'search'])->name('posts.search');
     Route::resource('posts', PostController::class);
 });
 
@@ -62,5 +63,6 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::post('/ajax-add-user', [AjaxUserController::class, 'store'])->name('ajax-users.store');
     Route::put('/ajax-update-user/{id}', [AjaxUserController::class, 'update'])->name('ajax-users.update');
     Route::delete('/ajax-delete-user/{id}', [AjaxUserController::class, 'destroy'])->name('ajax-users.destroy');
+    Route::get('/ajax-paginate-user', [AjaxUserController::class, 'paginationFetch']);
 });
 

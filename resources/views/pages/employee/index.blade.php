@@ -25,7 +25,7 @@
                         <div>
                             <form action="{{ route('employees.search') }}" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="search " name="emp_search" class="form-control" placeholder="Enter employee username or email">
+                                    <input type="search" name="emp_search" class="form-control" placeholder="Enter employee username or email">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="submit">
                                             <i class="fa fa-search" aria-hidden="true"></i>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AjaxUserController extends Controller
@@ -19,6 +21,7 @@ class AjaxUserController extends Controller
                 'status' => 200,
                 'users'=>$users,
             ]);
+            return view('pages.users-ajax.show',['users'=>$users]);
         }
         else{
             return response()->json([
@@ -66,11 +69,12 @@ class AjaxUserController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|alpha|min:3',
-            'last_name' => 'required|alpha|min:3',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
+            'last_name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
             'phone' => 'required|numeric|digits:10|unique:users',
-            'password' => 'required|min:6',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'role_as' => 'required|integer|digits_between:0,1'
         ]);
 
         if($validator->fails())
@@ -83,7 +87,7 @@ class AjaxUserController extends Controller
         else
         {
             $validatedData = $validator->validated();
-            $validatedData['password'] = bcrypt($validatedData['password']);
+            $validatedData['password'] = Hash::make($request->password);
             
             $user =  User::create($validatedData);
             $user->save();
@@ -96,13 +100,16 @@ class AjaxUserController extends Controller
     }
 
     public function update(Request $request, $id){
+        $user = User::findOrFail($id);
+
         // Validate data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|alpha|min:3',
-            'last_name' => 'required|alpha|min:3',
-            'phone' => 'required|numeric|digits:10',
-            'email' => 'required|email',
-            'password' => 'nullable|min:6',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
+            'last_name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
+            'phone' => 'required|numeric|digits:10|unique:users,phone,'.$user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id, 
+            'password' => 'nullable|min:8',
+            'role_as' => 'required|integer|digits_between:0,1'
         ]);
 
         if($validator->fails())
@@ -115,15 +122,19 @@ class AjaxUserController extends Controller
         else{
             $validatedData = $validator->validated();
 
-            $user = User::findOrFail($id);
             if(empty($validatedData['password'])){
-                $validatedData['password'] = $user->password;
+                $user->update([
+                    'name' => $validatedData['name'],
+                    'last_name' => $validatedData['last_name'],
+                    'phone' => $validatedData['phone'],
+                    'email' => $validatedData['email'],
+                    'role_as' => $validatedData['role_as'],
+                ]);
             }else{
-                $validatedData['password'] = bcrypt($validatedData['password']);
+                $validatedData['password'] = Hash::make($request->password);
+                $user->update($validatedData);
             }
             
-            $user->update($validatedData);
-
             return response()->json([
                 'status'=>200,
                 'message'=>'User Updated Successfully.'
@@ -132,7 +143,7 @@ class AjaxUserController extends Controller
     }
 
     public function destroy($id){
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         if($user)
         {
             $user->delete();
@@ -148,5 +159,18 @@ class AjaxUserController extends Controller
                 'message'=>'No User Found.'
             ]);
         }
+    }
+
+    public function paginationFetch(Request $request)
+    {
+        $users = User::paginate(5);
+        // $articles=User::when($request->has("title"),function($q)use($request){
+        //     return $q->where("title","like","%".$request->get("title")."%");
+        // })->paginate(5);
+
+        if($request->ajax()){
+            return view('pages.users-ajax.pagination',['users'=>$users]); 
+        } 
+        return view('pages.users-ajax.show',['users'=>$users]);
     }
 }

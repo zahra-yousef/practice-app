@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 class EmployeeController extends Controller
 {
     public function index(){
-        $employee = Employee::paginate(5);
+        $employee = Employee::latest()->paginate(5);
         return view('pages.employee.index',[
             'employee' => $employee,
         ]);
@@ -24,7 +24,7 @@ class EmployeeController extends Controller
             'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3',
             'email' => 'required|email|unique:employees',
             'phone' => 'required|numeric|digits:10|unique:employees',
-            'designation' => 'required',
+            'designation' => 'required|string',
         ]);
 
         // If validation fails go back to pre page 
@@ -36,6 +36,7 @@ class EmployeeController extends Controller
         
         // Retrieve the validated input...
         $validatedData = $validator->validated();
+        $validatedData['status'] = $requset->input('status') == true ? '1':'0';
       
         // Create instance of employee model
         $user =  Employee::create($validatedData);
@@ -43,7 +44,7 @@ class EmployeeController extends Controller
         // Save data into db
         $user->save();
 
-        return redirect('employee')->with('status','Employee Added Successfully');
+        return redirect('employees')->with('status','Employee Added Successfully');
     }
 
     public function edit($id){
@@ -54,13 +55,16 @@ class EmployeeController extends Controller
     }
 
     public function update(Request $requset, $id){
+        // Create instance of employee model
+        $employee = Employee::findOrFail($id);
+        
         // Validate data
         $validator = Validator::make($requset->all(), [
             'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3',
-            'email' => 'required|email',
-            'phone' => 'required|numeric|digits:10',
-            'designation' => 'required',
-            'status' => 'nullable',
+            'email' => 'required|email|unique:employees,email,'.$employee->id, 
+            'phone' => 'required|numeric|digits:10|unique:employees,phone,'.$employee->id,
+            'designation' => 'required|string',
+            'status' => 'nullable|integer|digits_between:0,1',
         ]);
 
         // If validation fails go back to pre page 
@@ -73,20 +77,17 @@ class EmployeeController extends Controller
         // Retrieve the validated input...
         $validatedData = $validator->validated();
         $validatedData['status'] = $requset->input('status') == true ? '1':'0';
-        
-        // Create instance of employee model
-        $employee = Employee::findOrFail($id);
-        
+
         // Update data into db
         $employee->update($validatedData);
         
-        return redirect('employee')->with('status','Employee Data Updated Successfully');
+        return redirect('employees')->with('status','Employee Data Updated Successfully');
     }
 
     public function destroy($id){
         $employee = Employee::findOrFail($id);
         $employee->delete();
-        return redirect('employee')->with('status','Employee Data Deleted Successfully');
+        return redirect('employees')->with('status','Employee Data Deleted Successfully');
     } 
 
     public function search(Request $requset){
@@ -94,7 +95,7 @@ class EmployeeController extends Controller
         $employee = Employee::where('name','like','%'.$search.'%')
                 ->orWhere('email','like','%'.$search.'%')
                 ->paginate(5);
-        // return view('pages.employee.index',compact('employee'));
+
         return view('pages.employee.index',[
             'employee' => $employee,
         ]);

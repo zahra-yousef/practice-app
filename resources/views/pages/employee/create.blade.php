@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Add Employee
-                        <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
+                        <a href="{{ route('employees.index') }}" class="btn btn-danger float-end">BACK</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -59,6 +59,15 @@
                             @error('designation')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Status</label>
+                            <input 
+                                type="checkbox" 
+                                name="status"
+                                value="1"   
+                                {{ old('status') ? 'checked' : '' }}
+                            > Unactive-0 / Active-1
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Submit</button>

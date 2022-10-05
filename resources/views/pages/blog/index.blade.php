@@ -15,6 +15,21 @@
                     </h4>
                 </div>
                 <div class="card-body">
+                    <div>
+                        <form action="{{ route('posts.search') }}" method="GET">
+                            <div class="input-group mb-3">
+                                <input type="search" name="post_search" class="form-control" placeholder="Enter post title or description">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                    <a href="{{ route('posts.index') }}" class="btn btn-warning text-white">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -39,9 +54,9 @@
                                         <td>{{ $item->title }}</td>
                                         <td>
                                             @if ($item->status == 1)
-                                                Hidden
-                                            @else
                                                 Visible
+                                            @else
+                                                Hidden
                                             @endif
                                         </td>
                                         <td>

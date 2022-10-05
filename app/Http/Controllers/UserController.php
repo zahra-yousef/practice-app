@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
     public function index(){
-        $users= User::paginate(5);
+        $users= User::latest()->paginate(5);
         return view('pages.users.index',[
             'users' => $users,
         ]);
@@ -38,7 +40,7 @@ class UserController extends Controller
         
         // Retrieve the validated input...
         $validatedData = $validator->validated();
-        $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['password'] = Hash::make($requset->password);
         
         // Create instance of user model
         $user =  User::create($validatedData);
@@ -57,12 +59,13 @@ class UserController extends Controller
     }
 
     public function update(Request $requset, $id){
+        $user = User::findOrFail($id);
         // Validate data
         $validator = Validator::make($requset->all(), [
             'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
             'last_name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
-            'phone' => 'required|numeric|digits:10',
-            'email' => 'required|email|max:255',
+            'phone' => 'required|numeric|digits:10|unique:users,phone,'.$user->id,
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id, 
             'password' => 'nullable|min:8',
             'role_as' => 'required|integer|digits_between:0,1'
         ]);
@@ -76,17 +79,19 @@ class UserController extends Controller
         
         // Retrieve the validated input...
         $validatedData = $validator->validated();
-
-        // Create instance of user model
-        $user = User::findOrFail($id);
-        if(empty($validatedData['password'])){
-            $validatedData['password'] = $user->password;
-        }else{
-            $validatedData['password'] = bcrypt($validatedData['password']);
-        }
         
-        // Update data into db
-        $user->update($validatedData);
+        if(empty($validatedData['password'])){
+            $user->update([
+                'name' => $validatedData['name'],
+                'last_name' => $validatedData['last_name'],
+                'phone' => $validatedData['phone'],
+                'email' => $validatedData['email'],
+                'role_as' => $validatedData['role_as'],
+            ]);
+        }else{
+            $validatedData['password'] = Hash::make($requset->password);
+            $user->update($validatedData);
+        }
         
         return redirect('users')->with('status','User Data Updated Successfully');
     }

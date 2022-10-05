@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     Add Posts
-                    <a href="{{ url()->previous() }}" class="btn btn-danger float-end">BACK</a>
+                    <a href="{{ route('posts.index') }}" class="btn btn-danger float-end">BACK</a>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
@@ -54,7 +54,11 @@
                         </div>
                         <div class="form-group mb-3">
                             <label for="">Status</label>
-                            <input type="checkbox" name="status"> 0-show / 1-hide
+                            <input 
+                                type="checkbox" 
+                                name="status"
+                                value="1"
+                            > 0-hide / 1-show
                         </div>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">Submit</button>

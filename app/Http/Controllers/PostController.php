@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $post = Post::paginate(5);
+        $post = Post::latest()->paginate(5);
         return view('pages.blog.index',compact('post')); 
     }
 
@@ -25,9 +25,10 @@ class PostController extends Controller
     {
         // Validate data
         $validator = Validator::make($request->all(), [
-            'title' => 'required|min:3|unique:posts',
+            'title' => 'required|string|min:3|unique:posts',
             'description' => 'required|string',
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+            'status' => 'nullable|integer|digits_between:0,1'
         ]);
 
         // If validation fails go back to pre page 
@@ -67,11 +68,13 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
         // Validate data
         $validator = Validator::make($request->all(), [
-            'title' => 'required|min:3',
+            'title' => 'required|string|min:3|unique:posts,title,'.$post->id,
             'description' => 'required|string',
             'image' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'status' => 'nullable|integer|digits_between:0,1'
         ]);
 
         // If validation fails go back to pre page 
@@ -81,7 +84,6 @@ class PostController extends Controller
                         ->withInput();
         }
 
-        $post = Post::findOrFail($id);
         $post->user_id = Auth::id();
         $post->title = $request->input('title');
         $post->description = $request->input('description');
@@ -111,5 +113,17 @@ class PostController extends Controller
         }
         $post->delete();
         return redirect('posts')->with('status','Post Deleted Successfully');
+    }
+
+    public function search(Request $requset){
+        $search = $requset->get('post_search');
+        $post = Post::where('title','like','%'.$search.'%')
+                ->orWhere('description','like','%'.$search.'%')
+                ->paginate(5);
+
+        return view('pages.blog.index',[
+            'post' => $post,
+        ]);
+
     }
 }

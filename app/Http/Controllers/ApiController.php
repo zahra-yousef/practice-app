@@ -13,27 +13,11 @@ class ApiController extends Controller
 {
     public function createEmp(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3',
             'email' => 'required|email|unique:employees',
             'phone' => 'required|numeric|digits:10|unique:employees',
             'designation' => 'required|string',
-        ],
-        [
-            'name.required'=> 'Your Name is Required', 
-            'name.string'=> 'Name Should be Only Characters',
-            'name.min'=> 'Name Should be Minimum of 3 Characters',
-            
-            'email.required'=> 'Your Email is Required', 
-            'email.email'=> 'Your Email has Wrong Syntax', 
-            'email.unique'=> 'Your Email Should be Unique', 
-
-            'phone.required'=> 'Your Phone is Required', 
-            'phone.numeric'=> 'Your Phone Should Only Contain Integers',
-
-            'designation.required'=> 'Your designation is Required', 
-            'designation.string'=> 'Your designation Should be Only Characters',
-        ]
-        );
+        ]);
    
         if($validator->fails()){
             return response(['Validation Message'=>$validator->errors()]);
@@ -62,32 +46,16 @@ class ApiController extends Controller
     }
 
     public function updateEmp(Request $request, $id){
+       // Create instance of user model
+        $employee = Employee::findOrFail($id);
+        
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:3',
-            'email' => 'required|email',
-            'phone' => 'required|numeric|digits:10',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3',
+            'email' => 'required|email|unique:employees,email,'.$employee->id, 
+            'phone' => 'required|numeric|digits:10|unique:employees,phone,'.$employee->id,
             'designation' => 'required|string',
-            'status' => 'nullable|integer|min:0|max:1'
-        ],
-        [
-            'name.required'=> 'Your Name is Required', 
-            'name.string'=> 'Name Should be Only Characters',
-            'name.min'=> 'Name Should be Minimum of 3 Characters',
-            
-            'email.required'=> 'Your Email is Required', 
-            'email.email'=> 'Your Email has Wrong Syntax',  
-
-            'phone.required'=> 'Your Phone is Required', 
-            'phone.numeric'=> 'Your Phone Should Only Contain Integers',
-           
-            'designation.required'=> 'Your Designation is Required', 
-            'designation.string'=> 'Your Designation Should be Only Characters',
-
-            'status.integer'=> 'Your Status Should Only Contain Integers',
-            'status.min'=> 'Your Status Should be Only between 0 and 1',
-            'status.max'=> 'Your Status Should be Only between 0 and 1',
-        ]
-        );
+            'status' => 'nullable|integer|digits_between:0,1'
+        ]);
    
         if($validator->fails()){
             return response(['Validation Message'=>$validator->errors()]);
@@ -95,9 +63,6 @@ class ApiController extends Controller
 
         // Retrieve the validated input...
         $validatedData = $validator->validated();
-    
-        // Create instance of user model
-        $employee = Employee::findOrFail($id);
 
         // Save data into db
         $employee->update($validatedData);
@@ -115,21 +80,9 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|min:3',
             'description' => 'required|string',
-            'status' => 'nullable|integer|min:0|max:1'
-        ],
-        [
-            'name.required'=> 'Post Title is Required', 
-            'name.string'=> 'Post Title Should be Only Characters',
-            'name.min'=> 'Post Title Should be Minimum of 3 Characters',
-           
-            'description.required'=> 'Post Description is Required', 
-            'description.string'=> 'Post Description Should be Only Characters',
-
-            'status.integer'=> 'Post Status Should Only Contain Integers',
-            'status.min'=> 'Post Status Should be Only between 0 and 1',
-            'status.max'=> 'Post Status Should be Only between 0 and 1',
-        ]
-        );
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:10000',
+            'status' => 'nullable|integer|digits_between:0,1'
+        ]);
    
         if($validator->fails()){
             return response(['Validation Message'=>$validator->errors()]);
@@ -165,21 +118,9 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|min:3',
             'description' => 'required|string',
-            'status' => 'nullable|integer|min:0|max:1'
-        ],
-        [
-            'name.required'=> 'Post Title is Required', 
-            'name.string'=> 'Post Title Should be Only Characters',
-            'name.min'=> 'Post Title Should be Minimum of 3 Characters',
-           
-            'description.required'=> 'Post Description is Required', 
-            'description.string'=> 'Post Description Should be Only Characters',
-
-            'status.integer'=> 'Post Status Should Only Contain Integers',
-            'status.min'=> 'Post Status Should be Only between 0 and 1',
-            'status.max'=> 'Post Status Should be Only between 0 and 1',
-        ]
-        );
+            'image' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'status' => 'nullable|integer|digits_between:0,1'
+        ]);
    
         if($validator->fails()){
             return response(['Validation Message'=>$validator->errors()]);

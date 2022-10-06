@@ -11,25 +11,26 @@ use Illuminate\Support\Facades\Validator;
 class AjaxUserController extends Controller
 {
     public function index(){
-        return view('pages.users-ajax.index');
+        $users = User::latest()->paginate(5);
+        return view('pages.users-ajax.index',compact('users'));
     }
 
-    public function show(){
-        $users = User::all();
-        if(!empty($users) && $users->count()){
-            return response()->json([
-                'status' => 200,
-                'users'=>$users,
-            ]);
-            return view('pages.users-ajax.show',['users'=>$users]);
-        }
-        else{
-            return response()->json([
-                'status' => 404,
-                'message'=> 'Not data found.',
-            ]);
-        }  
-    }
+    // public function show(){
+    //     $users = User::all();
+    //     if(!empty($users) && $users->count()){
+    //         return response()->json([
+    //             'status' => 200,
+    //             'users'=>$users,
+    //         ]);
+    //         //return view('pages.users-ajax.show',['users'=>$users]);
+    //     }
+    //     else{
+    //         return response()->json([
+    //             'status' => 404,
+    //             'message'=> 'Not data found.',
+    //         ]);
+    //     }  
+    // }
 
     public function showSingleUser($id){
         $user = User::find($id);
@@ -45,26 +46,6 @@ class AjaxUserController extends Controller
                 'message'=> 'Not data found.',
             ]);
         }  
-    }
-
-    public function search(Request $requset){
-        if($requset->ajax()){
-            $users = User::where('name','like','%'.$requset->search.'%')
-                ->orWhere('last_name','like','%'.$requset->search.'%')
-                ->orWhere('email','like','%'.$requset->search.'%')->get();
-            if(!empty($users) && $users->count()){
-                return response()->json([
-                    'status' => 200,
-                    'users'=>$users,
-                ]);
-            }
-            else{
-                return response()->json([
-                    'status' => 404,
-                    'message'=> 'Not data found.',
-                ]);
-            }    
-        }
     }
 
     public function store(Request $request){
@@ -161,16 +142,25 @@ class AjaxUserController extends Controller
         }
     }
 
-    public function paginationFetch(Request $request)
-    {
-        $users = User::paginate(5);
-        // $articles=User::when($request->has("title"),function($q)use($request){
-        //     return $q->where("title","like","%".$request->get("title")."%");
-        // })->paginate(5);
+    public function search(Request $requset){
+        $users = User::where('name','like','%'.request('serach_string').'%')
+        ->orWhere('last_name','like','%'.request('serach_string').'%')
+        ->orWhere('email','like','%'.request('serach_string').'%')
+        ->orderBy('id','desc')
+        ->paginate(5);
+        
+        if(!empty($users) && $users->count()){
+             return view('pages.users-ajax.pagination',compact('users'))->render();
+        }else{
+            return response()->json([
+                'status' => 'nothing_found'
+            ]);
+        }
+    }
 
-        if($request->ajax()){
-            return view('pages.users-ajax.pagination',['users'=>$users]); 
-        } 
-        return view('pages.users-ajax.show',['users'=>$users]);
+    public function pagination(Request $request)
+    {
+        $users = User::latest()->paginate(5);
+        return view('pages.users-ajax.pagination',compact('users'))->render();
     }
 }

@@ -57,12 +57,12 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 
     //Ajax-Users Routes
     Route::get('/ajax-users', [AjaxUserController::class, 'index'])->name('ajax-users.index');
-    Route::get('/ajax-show-users', [AjaxUserController::class, 'show'])->name('ajax-users.show');
+    // Route::get('/ajax-show-users', [AjaxUserController::class, 'show'])->name('ajax-users.show');
     Route::get('/ajax-show-user/{id}', [AjaxUserController::class, 'showSingleUser'])->name('ajax-users.showSingle');
     Route::get('/ajax-search-user', [AjaxUserController::class, 'search'])->name('ajax-users.search');
     Route::post('/ajax-add-user', [AjaxUserController::class, 'store'])->name('ajax-users.store');
     Route::put('/ajax-update-user/{id}', [AjaxUserController::class, 'update'])->name('ajax-users.update');
     Route::delete('/ajax-delete-user/{id}', [AjaxUserController::class, 'destroy'])->name('ajax-users.destroy');
-    Route::get('/ajax-paginate-user', [AjaxUserController::class, 'paginationFetch']);
+    Route::get('/pagination/pagiante-data', [AjaxUserController::class, 'pagination']);
 });
 

@@ -43,6 +43,18 @@
                         >
                     </div>
                     <div class="form-group mb-3">
+                        <label for="role_as">User Role</label>
+                        <select 
+                            id="role_as" 
+                            name="role_as"   
+                            class="role_as form-control"
+                        >
+                            <option value="">Select a Role</option>
+                            <option value="1">Admin</option>
+                            <option value="0">Normal user</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="">Password</label>
                         <input 
                             type="password" 
@@ -106,6 +118,18 @@
                             name="email" 
                             class="email form-control"
                         >
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="role_as">User Role</label>
+                        <select 
+                            id="edit_role_as" 
+                            name="role_as"   
+                            class="role_as form-control"
+                        >
+                            <option value="">Select a Role</option>
+                            <option value="1">Admin</option>
+                            <option value="0">Normal user</option>
+                        </select>
                     </div>
                     <div class="form-group mb-3">
                         <label for="">Password</label>

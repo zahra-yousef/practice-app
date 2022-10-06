@@ -19,8 +19,8 @@
                 url: "/ajax-show-users",
                 dataType: "json",
                 success: function (response) {
-                   // console.log(response.users);
-                   $('tbody').html("");
+                // console.log("fetch"+response.users);
+                $('tbody').html("");
                     if (response.status == 404) {
                         $('tbody').append('<tr>\
                             <td colspan="8">' + 'User data not found' + '</td>\
@@ -55,15 +55,11 @@
                 'phone': $('.phone').val(),
                 'email': $('.email').val(),
                 'password': $('.password').val(),
+                'role_as': $('.role_as').find(":selected").val(),
             }
 
-        //    console.log(user);
- 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+            // console.log("New");
+            // console.log(user);
 
             $.ajax({
                 type: "POST",
@@ -72,6 +68,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.status == 400) {
+                        // console.log("response");
                         // console.log(response);
                         $('#add_errList').html("");
                         $('#add_errList').show();
@@ -98,7 +95,7 @@
         //#3. Search User
         $(document).on('click', '.search_user',function (e) {
             e.preventDefault(); //Prevent page from loading
-          
+        
             var query= $('#search').val();
             $.ajax({
                 type: "GET",
@@ -142,11 +139,6 @@
             var user_id = $('#deleteing_id').val();
             $(this).text('Deleting..');
             // console.log('second: ' + user_id);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
             $.ajax({
                 type: "DELETE",
@@ -188,6 +180,8 @@
                         $('#edit_email').val(response.user.email);
                         $('#edit_phone').val(response.user.phone);
                         $('#edit_user_id').val(user_id);
+                        $role_as_value = response.user.role_as;
+                        $('#edit_role_as option[value='+$role_as_value+']').attr('selected', 'selected');
                     }
                 }
             });
@@ -204,13 +198,9 @@
                 'email' : $('#edit_email').val(),
                 'phone' : $('#edit_phone').val(),
                 'password' : $('#edit_password').val(),
+                'role_as': $('#edit_role_as').find(":selected").val(),
             }
-            // To support put method
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+
             $.ajax({
                 type: "PUT",
                 url: "/ajax-update-user/" + user_id,

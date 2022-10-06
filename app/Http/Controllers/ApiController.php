@@ -13,7 +13,7 @@ class ApiController extends Controller
 {
     public function createEmp(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3',
             'email' => 'required|email|unique:employees',
             'phone' => 'required|numeric|digits:10|unique:employees',
             'designation' => 'required|string',
@@ -50,7 +50,7 @@ class ApiController extends Controller
         $employee = Employee::findOrFail($id);
         
         $validator = Validator::make($request->all(), [
-            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3',
             'email' => 'required|email|unique:employees,email,'.$employee->id, 
             'phone' => 'required|numeric|digits:10|unique:employees,phone,'.$employee->id,
             'designation' => 'required|string',

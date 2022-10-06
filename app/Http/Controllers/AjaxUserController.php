@@ -69,8 +69,8 @@ class AjaxUserController extends Controller
 
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
-            'last_name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
+            'last_name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
             'phone' => 'required|numeric|digits:10|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
@@ -104,8 +104,8 @@ class AjaxUserController extends Controller
 
         // Validate data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
-            'last_name' => 'required|regex:/^[a-zA-Z\s]*$|min:3|max:191',
+            'name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
+            'last_name' => 'required|regex:/^[a-zA-Z\s]*$/|min:3|max:191',
             'phone' => 'required|numeric|digits:10|unique:users,phone,'.$user->id,
             'email' => 'required|email|unique:users,email,'.$user->id, 
             'password' => 'nullable|min:8',

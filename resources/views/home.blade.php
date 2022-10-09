@@ -14,6 +14,10 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <div>
+                        <a href="{{ route('users.change-password', Auth::user()->id) }}" class="btn btn-warning text-white mt-3">Change Password</a>
+                    </div>
                 </div>
             </div>
         </div>

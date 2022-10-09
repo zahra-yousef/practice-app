@@ -48,7 +48,7 @@ class UserController extends Controller
         // Save data into db
         $user->save();
 
-        return redirect('users')->with('status','User Added Successfully');
+        return redirect('users')->with('status','User Added Successfully!');
     }
 
     public function edit($id){
@@ -93,13 +93,13 @@ class UserController extends Controller
             $user->update($validatedData);
         }
         
-        return redirect('users')->with('status','User Data Updated Successfully');
+        return redirect('users')->with('status','User Data Updated Successfully!');
     }
 
     public function destroy($id){
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect('users')->with('status','User Data Deleted Successfully');
+        return redirect('users')->with('status','User Data Deleted Successfully!');
     } 
 
     public function search(Request $requset){
@@ -118,5 +118,31 @@ class UserController extends Controller
         return view('pages.users.show',[
             'user' => $user,
         ]);
+    }
+
+    public function changePassword($id){
+        $user = User::findOrFail($id);
+        return view('pages.users.change-password',[
+            'user' => $user,
+        ]);
+    }
+
+    public function updatePassword(Request $requset,$id){
+        $requset->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+        #Match The Old Password
+        if(!Hash::check($requset->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($requset->new_password)
+        ]);
+
+        return view('home')->with("status", "Password changed successfully!");
     }
 }

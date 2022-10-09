@@ -54,6 +54,8 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/update-user/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/change-password-user/{id}', [UserController::class, 'changePassword'])->name('users.change-password');
+    Route::post('/update-password-user/{id}', [UserController::class, 'updatePassword'])->name('users.update-password');
 
     //Ajax-Users Routes
     Route::get('/ajax-users', [AjaxUserController::class, 'index'])->name('ajax-users.index');

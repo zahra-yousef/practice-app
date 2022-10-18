@@ -10,7 +10,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('users.store') }}" method="POST">
+                    <form id="#addUserForm" action="{{ route('users.store') }}" method="POST">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="">Name</label>
@@ -88,11 +88,17 @@
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button 
+                                id="saveUser" 
+                                type="submit" 
+                                class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('frontend/js/user_validation.js') }}"></script>
 @endsection

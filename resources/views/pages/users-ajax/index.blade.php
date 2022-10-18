@@ -29,6 +29,7 @@
     </div>
 @endsection
 @section('scripts')
+    @include('pages.users-ajax.validation_js')
     @include('pages.users-ajax.users_js')
 @endsection
                                         

@@ -37,51 +37,53 @@
                                 </div>
                             </form>
                         </div>
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Designation</th>
-                                <th>Status</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                              </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                @if(!empty($employee) && $employee->count())
-                                    @foreach ($employee as $empdata)
+                        <div class="table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
+                                  <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Designation</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    @if(!empty($employee) && $employee->count())
+                                        @foreach ($employee as $empdata)
+                                            <tr>
+                                                <th>{{ $empdata->id }}</th>
+                                                <td>{{ $empdata->name }}</td>
+                                                <td>{{ $empdata->email }}</td>
+                                                <td>{{ $empdata->phone }}</td>
+                                                <td>{{ $empdata->designation }}</td>
+                                                <td>{{ $empdata->status }}</td>
+                                                <td>
+                                                    <a href="{{ route('employees.edit', $empdata->id) }}" class="btn btn-primary">Edit</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('employees.destroy', $empdata->id) }}" class="btn btn-danger" 
+                                                       onclick="return confirm('Are you sure to delete {{ $empdata->name }} data?')">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <th>{{ $empdata->id }}</th>
-                                            <td>{{ $empdata->name }}</td>
-                                            <td>{{ $empdata->email }}</td>
-                                            <td>{{ $empdata->phone }}</td>
-                                            <td>{{ $empdata->designation }}</td>
-                                            <td>{{ $empdata->status }}</td>
-                                            <td>
-                                                <a href="{{ route('employees.edit', $empdata->id) }}" class="btn btn-primary">Edit</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('employees.destroy', $empdata->id) }}" class="btn btn-danger" 
-                                                   onclick="return confirm('Are you sure to delete {{ $empdata->name }} data?')">Delete</a>
-                                            </td>
+                                            <td colspan="8">There are no data</td>
                                         </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="8">There are no data</td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                          </table>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mt-4 float-end">
-            {{ $employee->onEachSide(5)->links() }}
+            {{ $employee->links() }}
         </div>
     </div>   
 @endsection

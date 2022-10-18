@@ -178,7 +178,7 @@
         });
         function user(page){
             $.ajax({
-                url: "pagination/pagiante-data?page="+page,
+                url: "ajax-users?page="+page,
                 success: function (res) {
                     // console.log(res);
                     $('.table-data').html(res);

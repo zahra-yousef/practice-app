@@ -12,7 +12,7 @@ class AjaxUserController extends Controller
 {
     public function index(){
         $users = User::latest()->paginate(5);
-        return view('pages.users-ajax.index',compact('users'));
+        return view('pages.users-ajax.index',compact('users'))->render();
     }
 
     // public function show(){

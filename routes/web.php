@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxUser2Controller;
 use App\Http\Controllers\AjaxUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PageController;
+use App\Http\Livewire\User\UserProfileComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,7 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/change-password-user/{id}', [UserController::class, 'changePassword'])->name('users.change-password');
     Route::post('/update-password-user/{id}', [UserController::class, 'updatePassword'])->name('users.update-password');
+    // Route::get('/profile-user', UserProfileComponent::class)->name('users.profile');
 
     //Ajax-Users Routes
     Route::get('/ajax-users', [AjaxUserController::class, 'index'])->name('ajax-users.index');
@@ -66,5 +69,8 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::put('/ajax-update-user/{id}', [AjaxUserController::class, 'update'])->name('ajax-users.update');
     Route::delete('/ajax-delete-user/{id}', [AjaxUserController::class, 'destroy'])->name('ajax-users.destroy');
     Route::get('/pagination/pagiante-data', [AjaxUserController::class, 'pagination']);
-});
 
+    //Addiotional 
+    Route::get('/ajax-users2', [AjaxUser2Controller::class, 'index'])->name('ajax-users2.index');
+    Route::post('/ajax-users2', [AjaxUser2Controller::class, 'store'])->name('ajax-users2.store');
+});

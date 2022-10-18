@@ -30,54 +30,56 @@
                             </div>
                         </form>
                     </div>
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>User</th>
-                                <th>Title</th>
-                                <th>Status</th>                       
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(!empty($post) && $post->count())
-                                @foreach ($post as $item)
-                                    <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>
-                                            <img src="{{ asset('uploads/blog/'.$item->image) }}" width="80px" height="80px" alt="Post Image">
-                                        </td>
-                                        <td>{{ $item->users->name }}</td>
-                                        <td>{{ $item->title }}</td>
-                                        <td>
-                                            @if ($item->status == 1)
-                                                Visible
-                                            @else
-                                                Hidden
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('posts.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('posts.destroy', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this post ({{ $item->title }} )?')">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
                                 <tr>
-                                    <td colspan="8">There are no data</td>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>User</th>
+                                    <th>Title</th>
+                                    <th>Status</th>                       
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @if(!empty($post) && $post->count())
+                                    @foreach ($post as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>
+                                                <img src="{{ asset('uploads/blog/'.$item->image) }}" width="80px" height="80px" alt="Post Image">
+                                            </td>
+                                            <td>{{ $item->users->name }}</td>
+                                            <td>{{ $item->title }}</td>
+                                            <td>
+                                                @if ($item->status == 1)
+                                                    Visible
+                                                @else
+                                                    Hidden
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('posts.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('posts.destroy', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete this post ({{ $item->title }} )?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="8">There are no data</td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

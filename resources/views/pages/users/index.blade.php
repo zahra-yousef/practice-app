@@ -37,42 +37,44 @@
                                 </div>
                             </form>
                         </div>
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                              </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                @if(!empty($users) && $users->count())
-                                    @foreach ($users as $userdata)
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    @if(!empty($users) && $users->count())
+                                        @foreach ($users as $userdata)
+                                            <tr>
+                                                <th>{{ $userdata->id }}</th>
+                                                <td>{{ $userdata->name }}</td>
+                                                <td>{{ $userdata->last_name }}</td>
+                                                <td>{{ $userdata->email }}</td>
+                                                <td>{{ $userdata->phone }}</td>
+                                                <td>
+                                                    <a href="{{ route('users.edit', $userdata->id) }}" class="btn btn-primary">Edit</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('users.destroy', $userdata->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{ $userdata->name }} account?')">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
                                         <tr>
-                                            <th>{{ $userdata->id }}</th>
-                                            <td>{{ $userdata->name }}</td>
-                                            <td>{{ $userdata->last_name }}</td>
-                                            <td>{{ $userdata->email }}</td>
-                                            <td>{{ $userdata->phone }}</td>
-                                            <td>
-                                                <a href="{{ route('users.edit', $userdata->id) }}" class="btn btn-primary">Edit</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('users.destroy', $userdata->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{ $userdata->name }} account?')">Delete</a>
-                                            </td>
+                                            <td colspan="8">There are no data</td>
                                         </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="8">There are no data</td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                          </table>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

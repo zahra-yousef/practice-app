@@ -29,8 +29,7 @@
                                 name="description" 
                                 rows="3"
                                 class="form-control is-valid @error('description') is-invalid @enderror"  
-                            >
-                                {!! $post->description !!}
+                            >{!! $post->description !!}
                             </textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -40,6 +39,7 @@
                             <label for="">Image (File Upload)</label>
                             <input 
                                 type="file" 
+                                id="image"
                                 name="image" 
                                 class="form-control is-valid @error('image') is-invalid @enderror" 
                             >
@@ -65,4 +65,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('frontend/js/post_validation.js') }}"></script>
 @endsection

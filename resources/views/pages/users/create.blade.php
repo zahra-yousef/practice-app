@@ -91,7 +91,8 @@
                             <button 
                                 id="saveUser" 
                                 type="submit" 
-                                class="btn btn-primary">Submit</button>
+                                class="btn btn-primary"
+                                >Submit</button>
                         </div>
                     </form>
                 </div>
@@ -100,5 +101,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('frontend/js/user_validation.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/js/add_user_validation.js') }}"></script>
 @endsection

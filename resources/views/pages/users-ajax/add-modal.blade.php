@@ -1,6 +1,6 @@
 {{-- Add User Modal  --}}
 <div class="modal fade" id="AddUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form action="" method="POST" id="addUserForm">
+    <form id="addUserModalForm" action="javascript:void(0)" method="POST">
         @csrf
         <div class="modal-dialog">
             <div class="modal-content">
@@ -29,10 +29,11 @@
                     <div class="form-group mb-3">
                         <label for="">Phone</label>
                         <input 
-                            type="text" 
+                            type="number" 
                             name="phone" 
                             class="phone form-control"
                         >
+                        <span class="error text-danger d-none"></span>
                     </div>
                     <div class="form-group mb-3">
                         <label for="">Email</label>
@@ -65,7 +66,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close_add_btn" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary add_user">Save</button>
+                    <button id="ajaxSaveUser" type="button" class="btn btn-primary add_user">Save</button>
                 </div>
             </div>
         </div>

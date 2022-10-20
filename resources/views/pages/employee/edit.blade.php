@@ -10,7 +10,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+                    <form id="editEmpForm" action="{{ route('employees.update', $employee->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
@@ -71,11 +71,17 @@
                             > Unactive-0 / Active-1
                         </div>
                         <div class="form-group mb-3">
-                            <button type="submit" class="btn btn-primary">Upadate</button>
+                            <button 
+                                id="upadteEmployee" 
+                                type="submit" 
+                                class="btn btn-primary">Upadate</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('frontend/js/edit_employee_validation.js') }}"></script>
 @endsection

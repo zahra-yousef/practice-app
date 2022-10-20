@@ -10,14 +10,22 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Users Data using Ajax
-                            <a href="#"  data-bs-toggle="modal" data-bs-target="#AddUserModal" class="btn btn-primary float-end">Add User</a>
+                            <a href="#"  
+                                data-bs-toggle="modal"
+                                data-bs-target="#AddUserModal" 
+                                class="btn btn-primary float-end">Add User</a>
                         </h4>
                     </div>
                     <div class="card-body">
                         <div>
                             <form action="#" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="search " name="user_search" id="search" class="form-control" placeholder="Enter user first name, last name or email">
+                                    <input 
+                                        type="search " 
+                                        name="user_search" 
+                                        id="search" 
+                                        class="form-control" 
+                                        placeholder="Enter user first name, last name or email">
                                 </div>
                             </form>
                         </div>

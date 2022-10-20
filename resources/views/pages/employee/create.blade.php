@@ -85,5 +85,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('frontend/js/employee_validation.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/js/add_employee_validation.js') }}"></script>
 @endsection

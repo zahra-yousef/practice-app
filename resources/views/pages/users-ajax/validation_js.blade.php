@@ -1,19 +1,25 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#addUserForm').validate({ 
+    //$(document).ready(function (e) {
+    $(document).on('click','#ajaxSaveUser',function (e) {
+
+        jQuery.validator.addMethod("lettersonly", function(value, element) 
+        {
+            return this.optional(element) || /^[a-zA-Z\s]*$/.test(value);
+        }, "The name format is invalid..");
+
+        $('#addUserModalForm').validate({ 
             rules: {
                 name: {
-                    required: true,
-                    regexp: '/^[a-zA-Z\s]*$/',
+                    required: true,  
                     minlength: 3,
                     maxlength: 191,
+                    lettersonly: true,
                 },
                 last_name: {
                     required: true,
-                    regexp: '/^[a-zA-Z\s]*$/',
                     minlength: 3,
                     maxlength: 191,
+                    lettersonly: true,
                 },
                 phone: {
                     required: true,
@@ -36,6 +42,39 @@
                     minlength: 0,
                     minlength: 1,
                 },
+            },
+            messages: {
+                name: {
+                    required: "The title field is required..",
+                    minlength: "The name must be at least 3 characters..",
+                    maxlength: "The name must not be greater than 191 characters.."
+                },
+                last_name:{
+                    required: "The last name field is required..",
+                    minlength: "The last name must be at least 3 characters..",
+                    maxlength: "The last name must not be greater than 191 characters.."
+                },
+                phone: {
+                    required: "The phone field is required..",
+                    digits: "The phone must be a number..",
+                    minlength: "The phone must be 10 digits..",
+                    maxlength: "The phone must be 10 digits..",
+                    max: "The phone must not exceed 2147483647",
+                },
+                email: {
+                    required: "The email field is required..",
+                    email: "The email must be a valid email address..",
+                },
+                password: {
+                    required: "The password field is required..",
+                    minlength: "The last name must be at least 8 characters..",
+                },
+                role_as: {
+                    required: "The role field is required..",
+                    digits: "The phone must be a number..",
+                    minlength: "The phone must be 10 digits..",
+                    maxlength: "The phone must be 10 digits..",
+                }
             },
             errorElement: 'span',
                 errorPlacement: function (error, element) {

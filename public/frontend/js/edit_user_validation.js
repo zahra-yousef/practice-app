@@ -1,11 +1,11 @@
-$(document).on('click','#saveUser',function () {
+$(document).on('click','#updateUser',function () {
     console.log("test");
     jQuery.validator.addMethod("lettersonly", function(value, element) 
     {
         return this.optional(element) || /^[a-zA-Z\s]*$/.test(value);
     }, "The name format is invalid..");
 
-    $('#addUserForm').validate({ 
+    $('#editUserForm').validate({ 
         rules: {
             name: {
                 required: true,

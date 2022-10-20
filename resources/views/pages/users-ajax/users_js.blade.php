@@ -26,6 +26,12 @@
             }
 
             // console.log(user.name);
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $.ajax({
                 type: "POST",
                 url:"{{ route('ajax-users.store') }}",
@@ -42,9 +48,10 @@
                         $('.table').load(location.href+' .table');
                     }else{
                         $('#add_errList').html("");
-                        $('#add_errList').show();
+                        //$('#add_errList').show();
                         $.each(response.errors, function (key, err_value) {
-                            $('#add_errList').append('<p>' + err_value + '</p>');
+                            $(document).find('[name='+key+']').after('<span class="text-strong text-danger"><p>' + err_value + '</p></span>');
+                            //$('#add_errList').append('<p>' + err_value + '</p>');
                         });
                     }
                 }

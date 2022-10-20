@@ -70,7 +70,11 @@ Route::middleware(['auth','isAdmin'])->group(function(){
     Route::delete('/ajax-delete-user/{id}', [AjaxUserController::class, 'destroy'])->name('ajax-users.destroy');
     Route::get('/pagination/pagiante-data', [AjaxUserController::class, 'pagination']);
 
-    //Addiotional 
+    //Addiotional Ajax-Users Routes
     Route::get('/ajax-users2', [AjaxUser2Controller::class, 'index'])->name('ajax-users2.index');
-    Route::post('/ajax-users2', [AjaxUser2Controller::class, 'store'])->name('ajax-users2.store');
+    Route::post('/ajax-add-user2', [AjaxUser2Controller::class, 'store'])->name('ajax-users2.store');
+    Route::get('/ajax-show-users2', [AjaxUser2Controller::class, 'showAll'])->name('ajax-users2.show');
+    Route::get('/ajax-edit-users2', [AjaxUser2Controller::class, 'edit'])->name('ajax-users2.edit');
+    Route::post('/ajax-update-users2', [AjaxUser2Controller::class, 'update'])->name('ajax-users2.update');
+    Route::delete('/ajax-delete-users2', [AjaxUser2Controller::class, 'delete'])->name('ajax-users2.delete');
 });

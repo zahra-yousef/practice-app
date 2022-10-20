@@ -40,6 +40,7 @@
                                 type="file" 
                                 id="image"
                                 name="image" 
+                                accept="image/*"
                                 class="form-control is-valid @error('image') is-invalid @enderror" 
                                 >
                             @error('image')
@@ -68,5 +69,5 @@
 </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('frontend/js/post_validation.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/js/add_post_validation.js') }}"></script>
 @endsection

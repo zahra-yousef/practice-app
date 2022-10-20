@@ -9,7 +9,7 @@
                     <a href="{{ route('posts.index') }}" class="btn btn-danger float-end">BACK</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                    <form id="editPostForm" action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group mb-3">
@@ -41,6 +41,7 @@
                                 type="file" 
                                 id="image"
                                 name="image" 
+                                accept="image/*"
                                 class="form-control is-valid @error('image') is-invalid @enderror" 
                             >
                             @error('image')
@@ -57,7 +58,9 @@
                             > 0-hide / 1-show
                         </div>
                         <div class="form-group mb-3">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button id="updatePost" 
+                                type="submit" 
+                                class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
@@ -67,5 +70,5 @@
 </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('frontend/js/post_validation.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/js/edit_post_validation.js') }}"></script>
 @endsection

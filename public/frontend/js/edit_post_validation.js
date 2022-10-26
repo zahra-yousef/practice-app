@@ -16,16 +16,16 @@ $(document).ready(function () {
         },
         messages: {
             title: {
-                required: "The title field is required2.",
-                minlength: "The title must be at least 3 characters2."
+                required: "The title field is required..",
+                minlength: "The title must be at least 3 characters.."
             },
             description: {
-                required: "The description field is required2.",
+                required: "The description field is required..",
             },
             image: {
-                required: "The image field is required2.",
-                accept: "The image must be a file of type: jpeg, jpg, png, gif2.",
-                maxlength: "The image size must be less than 10000",
+                required: "The image field is required..",
+                accept: "The image must be a file of type: jpeg, jpg, png, gif..",
+                maxlength: "The image size must be less than 10000..",
             }
         },
         errorElement: 'span',

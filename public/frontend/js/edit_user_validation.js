@@ -32,7 +32,6 @@ $(document).on('click','#updateUser',function () {
                 maxlength: 255,
             },
             password: {
-                required: true,
                 minlength: 8,
             },
             role_as: {
@@ -65,7 +64,6 @@ $(document).on('click','#updateUser',function () {
                 email: "The email must be a valid email address..",
             },
             password: {
-                required: "The password field is required..",
                 minlength: "The last name must be at least 8 characters..",
             },
             role_as: {

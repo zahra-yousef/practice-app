@@ -56,6 +56,8 @@ class AjaxUserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
             'role_as' => 'required|integer|digits_between:0,1'
+        ],[
+            'role_as.digits_between' => 'The role field is required.'
         ]);
 
         if($validator->fails())

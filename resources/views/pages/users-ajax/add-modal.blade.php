@@ -17,7 +17,7 @@
                           <input 
                               type="text" 
                               name="name" 
-                              class="name form-control" 
+                              class="name form-inputs form-control" 
                               placeholder="First Name" 
                               required
                           >
@@ -29,7 +29,7 @@
                           <input 
                               type="text" 
                               name="last_name" 
-                              class="last_name form-control" 
+                              class="last_name form-inputs form-control" 
                               placeholder="Last Name" 
                               required
                           >
@@ -42,7 +42,7 @@
                         <input 
                             type="number" 
                             name="phone" 
-                            class="phone form-control" 
+                            class="phone form-inputs form-control" 
                             placeholder="Phone" 
                             required
                         >
@@ -54,7 +54,7 @@
                         <input 
                             type="email" 
                             name="email" 
-                            class="email form-control" 
+                            class="email form-inputs form-control" 
                             placeholder="E-mail" 
                             required
                         >
@@ -65,7 +65,7 @@
                         <label for="role_as">User Role</label>
                         <select 
                             name="role_as"   
-                            class="role_as form-control"
+                            class="role_as form-inputs form-control"
                             required
                         >
                             <option value="-1">Select a Role</option>
@@ -80,7 +80,7 @@
                         <input 
                             type="password" 
                             name="password" 
-                            class="password form-control"
+                            class="password form-inputs form-control"
                             placeholder="Password" 
                             required
                         >
@@ -88,8 +88,16 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="add_user_btn" class="btn btn-primary">Add User</button>
+                    <button 
+                      type="button" 
+                      class="close-btn btn btn-secondary" 
+                      data-bs-dismiss="modal"
+                      >Close</button>
+                    <button 
+                      type="submit" 
+                      id="add_user_btn" 
+                      class="btn btn-primary"
+                      >Add User</button>
                 </div>
             </form>
         </div>

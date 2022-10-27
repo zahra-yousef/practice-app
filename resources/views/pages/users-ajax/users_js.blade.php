@@ -8,11 +8,12 @@
 <script>
     $(function() {
         fetchAllUsers();
+ 
         //#1. Show All Users
         function fetchAllUsers() {
             $.ajax({
                 type: "GET",
-                url:  '{{ route('ajax-users2.show') }}',
+                url:  '{{ route('ajax-users.show') }}',
                 success: function (response) {
                     $("#show_all_users").html(response);
                     $("table").DataTable({
@@ -110,7 +111,7 @@
 
                 $("#add_user_btn").text('Adding...');
                 $.ajax({
-                    url: '{{ route('ajax-users2.store') }}',
+                    url: '{{ route('ajax-users.store') }}',
                     type: 'POST',
                     data: fd,
                     cache: false,
@@ -146,7 +147,7 @@
             e.preventDefault();
             let id = $(this).attr('id');
             $.ajax({
-                url: '{{ route('ajax-users2.edit') }}',
+                url: '{{ route('ajax-users.edit') }}',
                 type: 'GET',
                 data: {
                     id: id,
@@ -242,7 +243,7 @@
                 const fd = new FormData(form);
                 $("#edit_user_btn").text('Updating...');
                 $.ajax({
-                    url: '{{ route('ajax-users2.update') }}',
+                    url: '{{ route('ajax-users.update') }}',
                     type: 'POST',
                     data: fd,
                     cache: false,
@@ -287,7 +288,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '{{ route('ajax-users2.delete') }}',
+                        url: '{{ route('ajax-users.delete') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -305,6 +306,14 @@
                     });
                 }
             });
+        });
+
+        //#6. Close the Add & Update Modal
+        $(document).on('click', '.close-btn', function () {
+            $(document).find('span.invalid-feedback').remove();
+            $(document).find('span.error-msg').remove();
+            $('.form-inputs').removeClass('is-invalid');
+            $('#addUserModal').find('input').val('');
         });
     });
 </script>

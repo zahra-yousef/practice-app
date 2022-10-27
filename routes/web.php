@@ -62,19 +62,9 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 
     //Ajax-Users Routes
     Route::get('/ajax-users', [AjaxUserController::class, 'index'])->name('ajax-users.index');
-    // Route::get('/ajax-show-users', [AjaxUserController::class, 'show'])->name('ajax-users.show');
-    Route::get('/ajax-show-user/{id}', [AjaxUserController::class, 'showSingleUser'])->name('ajax-users.showSingle');
-    Route::get('/ajax-search-user', [AjaxUserController::class, 'search'])->name('ajax-users.search');
     Route::post('/ajax-add-user', [AjaxUserController::class, 'store'])->name('ajax-users.store');
-    Route::put('/ajax-update-user/{id}', [AjaxUserController::class, 'update'])->name('ajax-users.update');
-    Route::delete('/ajax-delete-user/{id}', [AjaxUserController::class, 'destroy'])->name('ajax-users.destroy');
-    Route::get('/pagination/pagiante-data', [AjaxUserController::class, 'pagination']);
-
-    //Addiotional Ajax-Users Routes
-    Route::get('/ajax-users2', [AjaxUser2Controller::class, 'index'])->name('ajax-users2.index');
-    Route::post('/ajax-add-user2', [AjaxUser2Controller::class, 'store'])->name('ajax-users2.store');
-    Route::get('/ajax-show-users2', [AjaxUser2Controller::class, 'showAll'])->name('ajax-users2.show');
-    Route::get('/ajax-edit-users2', [AjaxUser2Controller::class, 'edit'])->name('ajax-users2.edit');
-    Route::post('/ajax-update-users2', [AjaxUser2Controller::class, 'update'])->name('ajax-users2.update');
-    Route::delete('/ajax-delete-users2', [AjaxUser2Controller::class, 'delete'])->name('ajax-users2.delete');
+    Route::get('/ajax-show-users', [AjaxUserController::class, 'showAll'])->name('ajax-users.show');
+    Route::get('/ajax-edit-users', [AjaxUserController::class, 'edit'])->name('ajax-users.edit');
+    Route::post('/ajax-update-users', [AjaxUserController::class, 'update'])->name('ajax-users.update');
+    Route::delete('/ajax-delete-users', [AjaxUserController::class, 'destroy'])->name('ajax-users.delete');
 });

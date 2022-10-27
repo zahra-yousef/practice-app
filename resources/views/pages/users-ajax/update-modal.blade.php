@@ -19,7 +19,7 @@
                     type="text" 
                     id="name"
                     name="name" 
-                    class="name form-control" 
+                    class="name form-inputs form-control" 
                     placeholder="First Name" 
                     required
                 >
@@ -32,7 +32,7 @@
                     type="text" 
                     id="last_name"
                     name="last_name" 
-                    class="last_name form-control" 
+                    class="last_name form-inputs form-control" 
                     placeholder="Last Name" 
                     required
                 >
@@ -46,7 +46,7 @@
                 type="email" 
                 name="email" 
                 id="email" 
-                class="email form-control" 
+                class="email form-inputs form-control" 
                 placeholder="E-mail" 
                 required
               >
@@ -59,7 +59,7 @@
                 type="number" 
                 name="phone" 
                 id="phone" 
-                class="phone form-control" 
+                class="phone form-inputs form-control" 
                 placeholder="Phone" 
                 required
               >
@@ -71,7 +71,7 @@
               <select 
                 id="role_as" 
                 name="role_as"   
-                class="role_as form-control"
+                class="role_as form-inputs form-control"
                 required
               >
                 <option value="-1">Select a Role</option>
@@ -87,7 +87,7 @@
               type="password" 
               id="password"
               name="password" 
-              class="password form-control"
+              class="password form-inputs form-control"
               placeholder="Password" 
               required
             >
@@ -95,8 +95,16 @@
         </div>
       </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" id="edit_user_btn" class="btn btn-success">Update User</button>
+          <button 
+            type="button" 
+            class="close-btn btn btn-secondary" 
+            data-bs-dismiss="modal"
+            >Close</button>
+          <button 
+            type="submit" 
+            id="edit_user_btn" 
+            class="btn btn-success"
+            >Update User</button>
         </div>
       </form>
     </div>

@@ -8,17 +8,32 @@
 <script>
     $(function() {
         fetchAllUsers();
- 
+
         //#1. Show All Users
         function fetchAllUsers() {
             $.ajax({
                 type: "GET",
                 url:  '{{ route('ajax-users.show') }}',
+                dataType: 'json',
+                cache: false,
                 success: function (response) {
-                    $("#show_all_users").html(response);
-                    $("table").DataTable({
-                        order: [0, 'desc']
-                    });
+                    var table = $('#viewTable').DataTable();
+                    table.clear().draw();
+                    var data = response.users;    
+                    if(data!='') {               
+                        $.each(data, function(i, item) {
+                            table.row.add([ data[i].id, 
+                                data[i].name +" "+ data[i].last_name, 
+                                data[i].phone, 
+                                data[i].email, 
+                                '<a href="#" id="' + item.id + '" class="text-primary mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi-pencil-square h4"></i></a>', 
+                                '<a href="#" id="' + item.id + '" class="text-danger mx-1 deleteIcon"><i class="bi-trash h4"></i></a>']);
+                        });              
+                    }
+                    else {
+                        $('#viewTable').html('<h3>No users are available</h3>');
+                    }
+                    table.draw();
                 }
             });
         }
@@ -273,18 +288,19 @@
         }); 
 
         //#5. Delete User Modal
-        $(document).on('click', '.deleteIcon', function(e) {
+        //$(".deleteIcon").click(function (e) {
+        $('.deleteIcon').on('click', function(e) {
             e.preventDefault();
             let id = $(this).attr('id');
             let csrf = '{{ csrf_token() }}';
             Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -295,13 +311,15 @@
                             _token: csrf
                         },
                         success: function(response) {
-                            console.log(response);
-                            Swal.fire(
-                                'Deleted!',
-                                'User Deleted Successfully!',
-                                'success'
-                            )
-                            fetchAllUsers();
+                            if(response.status){
+                                // console.log(response);
+                                Swal.fire(
+                                    'Deleted!',
+                                    'User Deleted Successfully!',
+                                    'success'
+                                )
+                                fetchAllUsers();
+                            } 
                         }
                     });
                 }
@@ -313,7 +331,7 @@
             $(document).find('span.invalid-feedback').remove();
             $(document).find('span.error-msg').remove();
             $('.form-inputs').removeClass('is-invalid');
-            $('#addUserModal').find('input').val('');
+            $("#add_user_form")[0].reset();
         });
     });
 </script>

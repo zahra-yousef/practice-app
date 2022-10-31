@@ -49,22 +49,22 @@ Route::middleware(['auth','isAdmin'])->group(function(){
 
     //Users Routes
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/search-user', [UserController::class, 'search'])->name('users.search');
-    Route::get('/show-user/{id}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/add-user', [UserController::class, 'create'])->name('users.create');
-    Route::post('/store-user', [UserController::class, 'store'])->name('users.store');
-    Route::get('/edit-user/{id}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/update-user/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::get('/delete-user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/change-password-user/{id}', [UserController::class, 'changePassword'])->name('users.change-password');
-    Route::post('/update-password-user/{id}', [UserController::class, 'updatePassword'])->name('users.update-password');
+    Route::get('/user', [UserController::class, 'search'])->name('users.search');
+    // Route::get('/user/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/new-user', [UserController::class, 'create'])->name('users.create');
+    Route::post('/new-user', [UserController::class, 'store'])->name('users.store');
+    Route::get('/user/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/change-password/{id}', [UserController::class, 'changePassword'])->name('users.change-password');
+    Route::post('/change-password/{id}', [UserController::class, 'updatePassword'])->name('users.update-password');
     // Route::get('/profile-user', UserProfileComponent::class)->name('users.profile');
 
     //Ajax-Users Routes
     Route::get('/ajax-users', [AjaxUserController::class, 'index'])->name('ajax-users.index');
-    Route::post('/ajax-add-user', [AjaxUserController::class, 'store'])->name('ajax-users.store');
-    Route::get('/ajax-show-users', [AjaxUserController::class, 'showAll'])->name('ajax-users.show');
-    Route::get('/ajax-edit-users', [AjaxUserController::class, 'edit'])->name('ajax-users.edit');
-    Route::post('/ajax-update-users', [AjaxUserController::class, 'update'])->name('ajax-users.update');
-    Route::delete('/ajax-delete-users', [AjaxUserController::class, 'destroy'])->name('ajax-users.delete');
+    Route::post('/ajax-user/new', [AjaxUserController::class, 'store'])->name('ajax-users.store');
+    Route::get('/ajax-users/all', [AjaxUserController::class, 'showAll'])->name('ajax-users.show');
+    Route::get('/ajax-user', [AjaxUserController::class, 'edit'])->name('ajax-users.edit');
+    Route::post('/ajax-user', [AjaxUserController::class, 'update'])->name('ajax-users.update');
+    Route::delete('/ajax-user', [AjaxUserController::class, 'destroy'])->name('ajax-users.delete');
 });

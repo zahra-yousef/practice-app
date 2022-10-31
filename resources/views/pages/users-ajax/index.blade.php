@@ -12,7 +12,22 @@
                         class="bi-plus-circle me-2"></i>Add New User</button>
                     </div>
                     <div class="card-body" id="show_all_users">
-                    <h1 class="text-center text-secondary my-5">Loading...</h1>
+                        {{-- <h1 class="text-center text-secondary my-5">Loading...</h1> --}}
+                        <div class="table-responsive"> 
+                            <table id="viewTable" class="table table-striped table-hover table-sm text-center align-middle">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">E-mail</th>
+                                        <th class="text-center">Edit</th>
+                                        <th class="text-center">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

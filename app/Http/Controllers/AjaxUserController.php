@@ -18,37 +18,9 @@ class AjaxUserController extends Controller
     public function showAll()
     {
         $users = User::all();
-        $output = '';
-        if($users->count() > 0){
-            $output .= '<div class="table-responsive"> 
-            <table class="table table-striped table-hover table-sm text-center align-middle">
-                <thead>
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Phone</th>
-                    <th class="text-center">E-mail</th>
-                    <th class="text-center">Action</th>
-                </tr>
-                </thead>
-                <tbody>';
-            foreach ($users as $user) {
-                $output .= '<tr>
-                <td>' . $user->id . '</td>
-                <td>' . $user->name . ' ' . $user->last_name . '</td>
-                <td>' . $user->phone . '</td>
-                <td>' . $user->email . '</td>
-                <td>
-                    <a href="#" id="' . $user->id . '" class="text-primary mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="bi-pencil-square h4"></i></a>
-                    <a href="#" id="' . $user->id . '" class="text-danger mx-1 deleteIcon"><i class="bi-trash h4"></i></a>
-                </td>
-                </tr>';
-            }
-            $output .= '</tbody></table></div>';
-            echo $output;
-        } else {
-            echo '<h1 class="text-center text-secondary my-5">No data found in the database!</h1>';
-        }
+        return response()->json([
+            'users'=>$users,
+        ]);
     }
 
     public function store(Request $request) {
@@ -88,7 +60,7 @@ class AjaxUserController extends Controller
 
     public function edit(Request $request)
     {
-        $id = $request->id;
+        $id = $request->input('id');
         $user = User::findOrFail($id);
         return response()->json($user);
     }
@@ -142,8 +114,11 @@ class AjaxUserController extends Controller
 
     public function destroy(Request $request)
     {
-        $id = $request->id;
+        $id = $request->input('id');
         $user = User::findOrFail($id);
-        User::destroy($id);
+        $user->delete();
+        return response()->json([
+            'status'=>200,
+        ]);
     }
 }
